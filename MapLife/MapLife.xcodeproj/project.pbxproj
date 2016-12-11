@@ -7,9 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		41BADA301DFD8BFD004F885F /* MSearchAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = 41BADA2F1DFD8BFD004F885F /* MSearchAnnotation.m */; };
 		41CA127F1DE6072B00C16040 /* MBaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 41CA127E1DE6072B00C16040 /* MBaseViewController.m */; };
 		41CA12821DE607B700C16040 /* MSearchAddressViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 41CA12811DE607B700C16040 /* MSearchAddressViewController.m */; };
 		41CA12841DE60D2100C16040 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 41CA12831DE60D2100C16040 /* CoreGraphics.framework */; };
+		41F16DE21DFD9BAF0089ED44 /* SearchAnnotationView.m in Sources */ = {isa = PBXBuildFile; fileRef = 41F16DE11DFD9BAF0089ED44 /* SearchAnnotationView.m */; };
 		41FB88251DE1521A001E2F23 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 41FB88241DE1521A001E2F23 /* main.m */; };
 		41FB88281DE1521A001E2F23 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 41FB88271DE1521A001E2F23 /* AppDelegate.m */; };
 		41FB882B1DE1521A001E2F23 /* MapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 41FB882A1DE1521A001E2F23 /* MapViewController.m */; };
@@ -25,11 +27,15 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		41BADA2E1DFD8BFD004F885F /* MSearchAnnotation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MSearchAnnotation.h; sourceTree = "<group>"; };
+		41BADA2F1DFD8BFD004F885F /* MSearchAnnotation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MSearchAnnotation.m; sourceTree = "<group>"; };
 		41CA127D1DE6072B00C16040 /* MBaseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBaseViewController.h; sourceTree = "<group>"; };
 		41CA127E1DE6072B00C16040 /* MBaseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBaseViewController.m; sourceTree = "<group>"; };
 		41CA12801DE607B700C16040 /* MSearchAddressViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MSearchAddressViewController.h; sourceTree = "<group>"; };
 		41CA12811DE607B700C16040 /* MSearchAddressViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MSearchAddressViewController.m; sourceTree = "<group>"; };
 		41CA12831DE60D2100C16040 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		41F16DE01DFD9BAF0089ED44 /* SearchAnnotationView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchAnnotationView.h; sourceTree = "<group>"; };
+		41F16DE11DFD9BAF0089ED44 /* SearchAnnotationView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchAnnotationView.m; sourceTree = "<group>"; };
 		41FB88201DE1521A001E2F23 /* MapLife.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MapLife.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		41FB88241DE1521A001E2F23 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		41FB88261DE1521A001E2F23 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -115,6 +121,8 @@
 			children = (
 				41FB88641DE188A0001E2F23 /* AnnotationView.h */,
 				41FB88651DE188A0001E2F23 /* AnnotationView.m */,
+				41F16DE01DFD9BAF0089ED44 /* SearchAnnotationView.h */,
+				41F16DE11DFD9BAF0089ED44 /* SearchAnnotationView.m */,
 				41FB886C1DE19A5C001E2F23 /* ViewInfo.h */,
 				41FB886D1DE19A5C001E2F23 /* ViewInfo.m */,
 			);
@@ -126,6 +134,8 @@
 			children = (
 				41FB88691DE1906B001E2F23 /* Annotation.h */,
 				41FB886A1DE1906C001E2F23 /* Annotation.m */,
+				41BADA2E1DFD8BFD004F885F /* MSearchAnnotation.h */,
+				41BADA2F1DFD8BFD004F885F /* MSearchAnnotation.m */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -215,7 +225,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				41CA127F1DE6072B00C16040 /* MBaseViewController.m in Sources */,
+				41BADA301DFD8BFD004F885F /* MSearchAnnotation.m in Sources */,
 				41CA12821DE607B700C16040 /* MSearchAddressViewController.m in Sources */,
+				41F16DE21DFD9BAF0089ED44 /* SearchAnnotationView.m in Sources */,
 				41FB886B1DE1906C001E2F23 /* Annotation.m in Sources */,
 				41FB882B1DE1521A001E2F23 /* MapViewController.m in Sources */,
 				41FB88661DE188A0001E2F23 /* AnnotationView.m in Sources */,

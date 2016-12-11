@@ -9,14 +9,16 @@
 #import "Annotation.h"
 #import "AnnotationView.h"
 #import "MSearchAddressViewController.h"
+#import "MSearchAnnotation.h"
 #import "MapViewController.h"
+#import "SearchAnnotationView.h"
 #import "ViewInfo.h"
 #import <MapKit/MapKit.h>
-
 /**
  *  Image name pin map
  */
 NSString *const MKPinmapImage = @"pinmap";
+NSString *const MKPinMapSearchImage = @"iconToAddress";
 NSString *const MSegueSearch = @"SegueSearch";
 
 @interface MapViewController () <MKMapViewDelegate, CLLocationManagerDelegate,
@@ -37,6 +39,10 @@ NSString *const MSegueSearch = @"SegueSearch";
  *  Annotation object
  */
 @property(nonatomic, strong) Annotation *annotation;
+/**
+ *  Annotation object
+ */
+@property(nonatomic, strong) MSearchAnnotation *searchAnnotation;
 /**
  *  Viewinfo object
  */
@@ -136,36 +142,50 @@ NSString *const MSegueSearch = @"SegueSearch";
     }
     return annotationView;
   }
-  return nil;
-  // If it's the user location, just return nil.
-  //  if ([annotation isKindOfClass:[MKUserLocation class]])
-  //    return nil;
-  //  // Handle any custom annotations.
-  //  if ([annotation isKindOfClass:[MKPointAnnotation class]]) {
-  //    // Try to dequeue an existing pin view first.
-  //    MKPinAnnotationView *pinView = (MKPinAnnotationView *)[self.mapLifeView
-  //        dequeueReusableAnnotationViewWithIdentifier:@"CustomPinAnnotationView"];
-  //    if (!pinView) {
-  //      // If an existing pin view was not available, create one.
-  //      pinView = [[MKPinAnnotationView alloc]
-  //          initWithAnnotation:annotation
-  //             reuseIdentifier:@"CustomPinAnnotationView"];
-  //      pinView.canShowCallout = YES;
-  //        pinView.hidden = YES;
-  //    } else {
-  //      pinView.annotation = annotation;
-  //        pinView.hidden = YES;
-  //    }
-  //    return pinView;
-  //  }
-  //  return nil;
-}
+  if ([annotation isKindOfClass:[MSearchAnnotation class]]) {
 
+    UIImageView *pinView = nil;
+    UIView *calloutView = nil;
+
+    SearchAnnotationView *searchannotationView =
+        (SearchAnnotationView *)[mapView
+            dequeueReusableAnnotationViewWithIdentifier:
+                NSStringFromClass([SearchAnnotationView class])];
+    if (!searchannotationView) {
+
+      pinView = [[UIImageView alloc]
+          initWithImage:[UIImage imageNamed:MKPinMapSearchImage]];
+
+      self.viewInfo =
+          (ViewInfo *)[[[NSBundle mainBundle] loadNibNamed:@"ViewInfo"
+                                                     owner:self
+                                                   options:nil] firstObject];
+      [self.viewInfo loadInfoAddress:self.addressUser];
+      calloutView = self.viewInfo;
+      searchannotationView = [[SearchAnnotationView alloc]
+          initWithAnnotation:annotation
+             reuseIdentifier:NSStringFromClass([SearchAnnotationView class])
+                     pinView:pinView
+                 calloutView:calloutView];
+
+    } else {
+      pinView = (UIImageView *)searchannotationView.pinView;
+      pinView.image = [UIImage imageNamed:MKPinmapImage];
+    }
+    return searchannotationView;
+  }
+  return nil;
+}
 - (void)mapView:(MKMapView *)mapView
     didSelectAnnotationView:(MKAnnotationView *)view {
   if ([view isKindOfClass:[AnnotationView class]]) {
 
     [(AnnotationView *)view showCalloutView];
+    view.layer.zPosition = 0;
+  }
+  if ([view isKindOfClass:[SearchAnnotationView class]]) {
+
+    [(SearchAnnotationView *)view showCalloutView];
     view.layer.zPosition = 0;
   }
 }
@@ -191,35 +211,39 @@ NSString *const MSegueSearch = @"SegueSearch";
     if (currentLocation != nil) {
 
       self.annotation = [Annotation new];
-      self.annotation.coordinate =
-          CLLocationCoordinate2DMake(currentLocation.coordinate.latitude,
-                                     currentLocation.coordinate.longitude);
+      // Setup annotation
+      [self setupAnnotation:self.annotation location:currentLocation];
     }
-    [self.geocoder
-        reverseGeocodeLocation:currentLocation
-             completionHandler:^(NSArray<CLPlacemark *> *_Nullable placemarks,
-                                 NSError *_Nullable error) {
-
-               if (error == nil && [placemarks count] > 0) {
-
-                 self.placeMark = [placemarks lastObject];
-                 self.addressUser = [NSString
-                     stringWithFormat:@"%@, %@, %@", self.placeMark.name,
-                                      self.placeMark.administrativeArea,
-                                      self.placeMark.country];
-
-                 [self.mapLifeView addAnnotation:self.annotation];
-                 [self.mapLifeView
-                     setRegion:MKCoordinateRegionMakeWithDistance(
-                                   self.annotation.coordinate, 1000, 1000)];
-                 [self.mapLifeView selectAnnotation:self.annotation
-                                           animated:YES];
-               }
-
-             }];
   }
 }
+- (void)setupAnnotation:(id<MKAnnotation>)annotation
+               location:(CLLocation *)currentLocation {
+  annotation.coordinate =
+      CLLocationCoordinate2DMake(currentLocation.coordinate.latitude,
+                                 currentLocation.coordinate.longitude);
 
+  [self.geocoder
+      reverseGeocodeLocation:currentLocation
+           completionHandler:^(NSArray<CLPlacemark *> *_Nullable placemarks,
+                               NSError *_Nullable error) {
+
+             if (error == nil && [placemarks count] > 0) {
+
+               self.placeMark = [placemarks lastObject];
+               self.addressUser = [NSString
+                   stringWithFormat:@"%@, %@, %@", self.placeMark.name,
+                                    self.placeMark.administrativeArea,
+                                    self.placeMark.country];
+
+               [self.mapLifeView addAnnotation:annotation];
+               [self.mapLifeView
+                   setRegion:MKCoordinateRegionMakeWithDistance(
+                                 annotation.coordinate, 1000, 1000)];
+               [self.mapLifeView selectAnnotation:annotation animated:YES];
+             }
+
+           }];
+}
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
 
   if ([segue.identifier isEqualToString:MSegueSearch]) {
@@ -283,6 +307,12 @@ NSString *const MSegueSearch = @"SegueSearch";
         NSLog(@"Rout Distance : %f", [obj distance]);
       }];
     }];
+    self.searchAnnotation = [MSearchAnnotation new];
+    CLLocation *locationToAddress = [[CLLocation alloc]
+        initWithLatitude:locationCoordinateToAddress.latitude
+               longitude:locationCoordinateToAddress.longitude];
+    // Setup annotation
+    [self setupAnnotation:self.searchAnnotation location:locationToAddress];
 
     [self plotOnMap:self.route];
 
