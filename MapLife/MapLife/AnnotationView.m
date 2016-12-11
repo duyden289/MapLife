@@ -41,9 +41,9 @@
 }
 
 - (void)positionSubView {
-//  self.pinView.center = self.center;
+  //  self.pinView.center = self.center;
   CGRect frame = self.calloutView.frame;
-  frame.origin.y = -frame.size.height ;
+  frame.origin.y = -frame.size.height;
   frame.origin.x = (self.frame.size.width - frame.size.width) / 2.0;
   self.calloutView.frame = frame;
 }
@@ -63,7 +63,7 @@
   _pinView = pinView;
   [self addSubview:_pinView];
   self.frame = [self calculateFrame];
-//  self.pinView.center = self.center;
+  //  self.pinView.center = self.center;
 }
 #pragma mark CalloutView
 - (void)setCalloutView:(UIView *)calloutView {
