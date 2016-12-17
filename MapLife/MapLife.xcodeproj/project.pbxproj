@@ -7,8 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		419190E31DFDACFD00FA369C /* SearchViewInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 419190E21DFDACFD00FA369C /* SearchViewInfo.m */; };
-		419190E51DFDAD7800FA369C /* SearchViewInfo.xib in Resources */ = {isa = PBXBuildFile; fileRef = 419190E41DFDAD7800FA369C /* SearchViewInfo.xib */; };
 		41BADA301DFD8BFD004F885F /* MSearchAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = 41BADA2F1DFD8BFD004F885F /* MSearchAnnotation.m */; };
 		41CA127F1DE6072B00C16040 /* MBaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 41CA127E1DE6072B00C16040 /* MBaseViewController.m */; };
 		41CA12821DE607B700C16040 /* MSearchAddressViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 41CA12811DE607B700C16040 /* MSearchAddressViewController.m */; };
@@ -29,9 +27,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		419190E11DFDACFD00FA369C /* SearchViewInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchViewInfo.h; sourceTree = "<group>"; };
-		419190E21DFDACFD00FA369C /* SearchViewInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchViewInfo.m; sourceTree = "<group>"; };
-		419190E41DFDAD7800FA369C /* SearchViewInfo.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SearchViewInfo.xib; sourceTree = "<group>"; };
 		41BADA2E1DFD8BFD004F885F /* MSearchAnnotation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MSearchAnnotation.h; sourceTree = "<group>"; };
 		41BADA2F1DFD8BFD004F885F /* MSearchAnnotation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MSearchAnnotation.m; sourceTree = "<group>"; };
 		41CA127D1DE6072B00C16040 /* MBaseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBaseViewController.h; sourceTree = "<group>"; };
@@ -102,7 +97,6 @@
 				41FB88631DE18848001E2F23 /* View */,
 				41FB882C1DE1521A001E2F23 /* Main.storyboard */,
 				41FB88611DE18792001E2F23 /* ViewInfo.xib */,
-				419190E41DFDAD7800FA369C /* SearchViewInfo.xib */,
 				41FB882F1DE1521A001E2F23 /* Assets.xcassets */,
 				41FB88311DE1521A001E2F23 /* LaunchScreen.storyboard */,
 				41FB88341DE1521A001E2F23 /* Info.plist */,
@@ -131,8 +125,6 @@
 				41F16DE11DFD9BAF0089ED44 /* SearchAnnotationView.m */,
 				41FB886C1DE19A5C001E2F23 /* ViewInfo.h */,
 				41FB886D1DE19A5C001E2F23 /* ViewInfo.m */,
-				419190E11DFDACFD00FA369C /* SearchViewInfo.h */,
-				419190E21DFDACFD00FA369C /* SearchViewInfo.m */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -220,7 +212,6 @@
 			files = (
 				41FB88621DE18792001E2F23 /* ViewInfo.xib in Resources */,
 				41FB88331DE1521A001E2F23 /* LaunchScreen.storyboard in Resources */,
-				419190E51DFDAD7800FA369C /* SearchViewInfo.xib in Resources */,
 				41FB88301DE1521A001E2F23 /* Assets.xcassets in Resources */,
 				41FB882E1DE1521A001E2F23 /* Main.storyboard in Resources */,
 			);
@@ -238,7 +229,6 @@
 				41CA12821DE607B700C16040 /* MSearchAddressViewController.m in Sources */,
 				41F16DE21DFD9BAF0089ED44 /* SearchAnnotationView.m in Sources */,
 				41FB886B1DE1906C001E2F23 /* Annotation.m in Sources */,
-				419190E31DFDACFD00FA369C /* SearchViewInfo.m in Sources */,
 				41FB882B1DE1521A001E2F23 /* MapViewController.m in Sources */,
 				41FB88661DE188A0001E2F23 /* AnnotationView.m in Sources */,
 				41FB88281DE1521A001E2F23 /* AppDelegate.m in Sources */,

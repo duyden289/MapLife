@@ -12,7 +12,6 @@
 #import "MSearchAnnotation.h"
 #import "MapViewController.h"
 #import "SearchAnnotationView.h"
-#import "SearchViewInfo.h"
 #import "ViewInfo.h"
 #import <MapKit/MapKit.h>
 /**
@@ -323,17 +322,16 @@ NSString *const MSegueSearch = @"SegueSearch";
 }
 - (void)addSearchViewInfo {
 
-  SearchViewInfo *searchViewInfo =
-      [[[NSBundle mainBundle] loadNibNamed:@"SearchViewInfo"
-                                     owner:self
-                                   options:nil] firstObject];
-  CGRect frameRect = searchViewInfo.frame;
-  frameRect.size.width = self.view.frame.size.width;
-  frameRect.origin.y = self.view.frame.size.height - 150;
-  frameRect.origin.x = self.view.frame.origin.x;
-  searchViewInfo.frame = frameRect;
-
-  [self.view addSubview:searchViewInfo];
+//  CGRect frameRect = CGRectMake(0, self.view.frame.size.height - 100,
+//                                CGRectGetWidth(self.view.bounds), 100);
+//  self.searchViewInfo = [[[NSBundle mainBundle] loadNibNamed:@"SearchViewInfo"
+//                                                       owner:self
+//                                                     options:nil] firstObject];
+//  self.searchViewInfo.delegate = self;
+//  self.searchViewInfo.frame = frameRect;
+//  [self.view addSubview:self.searchViewInfo];
+//  self.searchViewInfo.translatesAutoresizingMaskIntoConstraints = NO;
+//  [self.searchViewInfo updateViewConstraint:self];
 }
 #pragma mark Unitily method
 - (void)plotOnMap:(MKRoute *)route {
