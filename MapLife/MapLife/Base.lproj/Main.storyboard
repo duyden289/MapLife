@@ -55,7 +55,7 @@
         <!--Infor Menu Search View Controller-->
         <scene sceneID="29e-II-0e5">
             <objects>
-                <viewController id="kZE-92-Jtd" customClass="InforMenuSearchViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="SBInforMenuSearchViewController" id="kZE-92-Jtd" customClass="InforMenuSearchViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="Tuz-CI-GAa"/>
                         <viewControllerLayoutGuide type="bottom" id="lgM-in-E0Z"/>
@@ -64,16 +64,16 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1E3-ne-Pdb" customClass="MenuSearchDraggingButton">
-                                <rect key="frame" x="0.0" y="0.0" width="600" height="30"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1E3-ne-Pdb" customClass="MenuSearchDraggingButton">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="34"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="30" id="4om-Bh-Wmk"/>
+                                    <constraint firstAttribute="height" constant="34" id="4om-Bh-Wmk"/>
                                 </constraints>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="G7Y-b6-G63">
                                 <rect key="frame" x="64" y="290" width="472" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>

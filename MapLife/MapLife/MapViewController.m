@@ -8,6 +8,7 @@
 
 #import "Annotation.h"
 #import "AnnotationView.h"
+#import "InforMenuSearchViewController.h"
 #import "MSearchAddressViewController.h"
 #import "MSearchAnnotation.h"
 #import "MapViewController.h"
@@ -20,9 +21,15 @@
 NSString *const MKPinmapImage = @"pinmap";
 NSString *const MKPinMapSearchImage = @"iconToAddress";
 NSString *const MSegueSearch = @"SegueSearch";
+/**
+ *  Storyboard infor menu search view controller
+ */
+NSString *const StoryboardInforMenuSearchViewController =
+    @"SBInforMenuSearchViewController";
 
 @interface MapViewController () <MKMapViewDelegate, CLLocationManagerDelegate,
-                                 MSearchAddressViewControllerDelegate>
+                                 MSearchAddressViewControllerDelegate,
+                                 InforMenuSearchViewControllerDelegate>
 /**
  *  Mapview
  */
@@ -71,6 +78,10 @@ NSString *const MSegueSearch = @"SegueSearch";
  *  Route map location
  */
 @property(nonatomic, strong) MKRoute *route;
+/**
+ *  Infor menu search
+ */
+@property(nonatomic, strong) InforMenuSearchViewController *infoMenuSearch;
 
 @end
 
@@ -322,16 +333,63 @@ NSString *const MSegueSearch = @"SegueSearch";
 }
 - (void)addSearchViewInfo {
 
-//  CGRect frameRect = CGRectMake(0, self.view.frame.size.height - 100,
-//                                CGRectGetWidth(self.view.bounds), 100);
-//  self.searchViewInfo = [[[NSBundle mainBundle] loadNibNamed:@"SearchViewInfo"
-//                                                       owner:self
-//                                                     options:nil] firstObject];
-//  self.searchViewInfo.delegate = self;
-//  self.searchViewInfo.frame = frameRect;
-//  [self.view addSubview:self.searchViewInfo];
-//  self.searchViewInfo.translatesAutoresizingMaskIntoConstraints = NO;
-//  [self.searchViewInfo updateViewConstraint:self];
+  // Setup infor menu search
+  self.infoMenuSearch =
+      [self.storyboard instantiateViewControllerWithIdentifier:
+                           StoryboardInforMenuSearchViewController];
+  self.infoMenuSearch.delegate = self;
+  // Add infor search to view
+  [self addChildViewController:self.infoMenuSearch];
+  [self.view addSubview:self.infoMenuSearch.view];
+  [self.infoMenuSearch didMoveToParentViewController:self];
+
+  UIView *subView = self.infoMenuSearch.view;
+  UIView *parent = self.view;
+  subView.translatesAutoresizingMaskIntoConstraints = NO;
+
+  // Trailing
+  NSLayoutConstraint *rightConstraintView =
+      [NSLayoutConstraint constraintWithItem:parent
+                                   attribute:NSLayoutAttributeTrailing
+                                   relatedBy:NSLayoutRelationEqual
+                                      toItem:subView
+                                   attribute:NSLayoutAttributeTrailing
+                                  multiplier:1.0f
+                                    constant:0.0];
+
+  // Leading
+  NSLayoutConstraint *leftConstraintView =
+      [NSLayoutConstraint constraintWithItem:subView
+                                   attribute:NSLayoutAttributeLeading
+                                   relatedBy:NSLayoutRelationEqual
+                                      toItem:parent
+                                   attribute:NSLayoutAttributeLeading
+                                  multiplier:1.0f
+                                    constant:0.0];
+
+  // Bottom
+  NSLayoutConstraint *bottom =
+      [NSLayoutConstraint constraintWithItem:parent
+                                   attribute:NSLayoutAttributeBottom
+                                   relatedBy:NSLayoutRelationEqual
+                                      toItem:subView
+                                   attribute:NSLayoutAttributeBottom
+                                  multiplier:1.0f
+                                    constant:0.0];
+
+  // Height to be fixed for SubView same as AdHeight
+  NSLayoutConstraint *heightConstraintView =
+      [NSLayoutConstraint constraintWithItem:subView
+                                   attribute:NSLayoutAttributeHeight
+                                   relatedBy:NSLayoutRelationEqual
+                                      toItem:nil
+                                   attribute:(NSLayoutAttribute)0
+                                  multiplier:1.0f
+                                    constant:150.0];
+
+  // Add constraint of the View to the Card View
+  [parent addConstraints:@[ leftConstraintView, bottom, rightConstraintView ]];
+  [subView addConstraint:heightConstraintView];
 }
 #pragma mark Unitily method
 - (void)plotOnMap:(MKRoute *)route {
@@ -351,5 +409,8 @@ NSString *const MSegueSearch = @"SegueSearch";
   polylineRenderer.strokeColor = [UIColor redColor];
   polylineRenderer.lineWidth = 6.0;
   return polylineRenderer;
+}
+#pragma mark InforMenuSearchViewControlerDelegate
+- (void)movingContainerScrollWithView:(UIView *)view andRect:(CGRect)rect {
 }
 @end

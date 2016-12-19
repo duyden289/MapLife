@@ -34,10 +34,14 @@ const UIEdgeInsets MenuInsetsBackground = {30, 30, 5, 5};
 
   if (self) {
 
-    [self setBackgroundImage:[UIImage imageNamed:ImageDraggingButtonNormal]
-                    forState:UIControlStateNormal];
-    [self setBackgroundImage:[UIImage imageNamed:ImageDraggingButtonPress]
-                    forState:UIControlStateHighlighted];
+      [self
+       setBackgroundImage:[[UIImage imageNamed:ImageDraggingButtonNormal]
+                           resizableImageWithCapInsets:MenuInsetsBackground]
+       forState:UIControlStateNormal];
+      [self
+       setBackgroundImage:[[UIImage imageNamed:ImageDraggingButtonPress]
+                           resizableImageWithCapInsets:MenuInsetsBackground]
+       forState:UIControlStateHighlighted];
   }
   return self;
 }
@@ -62,7 +66,6 @@ const UIEdgeInsets MenuInsetsBackground = {30, 30, 5, 5};
                                resizableImageWithCapInsets:MenuInsetsBackground]
                   forState:UIControlStateNormal];
   }
-  [self setNeedsLayout];
 }
 /**
  *  Touch cancel button dragging
