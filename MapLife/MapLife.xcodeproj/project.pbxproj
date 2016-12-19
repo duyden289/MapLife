@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		411ED6031E07818A0095D066 /* MenuSearchDraggingButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 411ED6021E07818A0095D066 /* MenuSearchDraggingButton.m */; };
+		411ED6081E0796240095D066 /* UIColor+MapLife.m in Sources */ = {isa = PBXBuildFile; fileRef = 411ED6071E0796240095D066 /* UIColor+MapLife.m */; };
+		4191A7EF1E05C1C500AD4885 /* InforMenuSearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4191A7EE1E05C1C500AD4885 /* InforMenuSearchViewController.m */; };
 		41BADA301DFD8BFD004F885F /* MSearchAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = 41BADA2F1DFD8BFD004F885F /* MSearchAnnotation.m */; };
 		41CA127F1DE6072B00C16040 /* MBaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 41CA127E1DE6072B00C16040 /* MBaseViewController.m */; };
 		41CA12821DE607B700C16040 /* MSearchAddressViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 41CA12811DE607B700C16040 /* MSearchAddressViewController.m */; };
@@ -27,6 +30,12 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		411ED6011E07818A0095D066 /* MenuSearchDraggingButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MenuSearchDraggingButton.h; sourceTree = "<group>"; };
+		411ED6021E07818A0095D066 /* MenuSearchDraggingButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MenuSearchDraggingButton.m; sourceTree = "<group>"; };
+		411ED6061E0796240095D066 /* UIColor+MapLife.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+MapLife.h"; sourceTree = "<group>"; };
+		411ED6071E0796240095D066 /* UIColor+MapLife.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+MapLife.m"; sourceTree = "<group>"; };
+		4191A7ED1E05C1C500AD4885 /* InforMenuSearchViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InforMenuSearchViewController.h; sourceTree = "<group>"; };
+		4191A7EE1E05C1C500AD4885 /* InforMenuSearchViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InforMenuSearchViewController.m; sourceTree = "<group>"; };
 		41BADA2E1DFD8BFD004F885F /* MSearchAnnotation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MSearchAnnotation.h; sourceTree = "<group>"; };
 		41BADA2F1DFD8BFD004F885F /* MSearchAnnotation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MSearchAnnotation.m; sourceTree = "<group>"; };
 		41CA127D1DE6072B00C16040 /* MBaseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBaseViewController.h; sourceTree = "<group>"; };
@@ -71,6 +80,32 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		411ED6041E0795450095D066 /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				411ED6051E0795550095D066 /* Categories */,
+			);
+			name = Common;
+			sourceTree = "<group>";
+		};
+		411ED6051E0795550095D066 /* Categories */ = {
+			isa = PBXGroup;
+			children = (
+				411ED6061E0796240095D066 /* UIColor+MapLife.h */,
+				411ED6071E0796240095D066 /* UIColor+MapLife.m */,
+			);
+			name = Categories;
+			sourceTree = "<group>";
+		};
+		4191A7EC1E05C19000AD4885 /* Information Search */ = {
+			isa = PBXGroup;
+			children = (
+				4191A7ED1E05C1C500AD4885 /* InforMenuSearchViewController.h */,
+				4191A7EE1E05C1C500AD4885 /* InforMenuSearchViewController.m */,
+			);
+			name = "Information Search";
+			sourceTree = "<group>";
+		};
 		41FB88171DE1521A001E2F23 = {
 			isa = PBXGroup;
 			children = (
@@ -90,6 +125,7 @@
 		41FB88221DE1521A001E2F23 /* MapLife */ = {
 			isa = PBXGroup;
 			children = (
+				411ED6041E0795450095D066 /* Common */,
 				41FB88261DE1521A001E2F23 /* AppDelegate.h */,
 				41FB88271DE1521A001E2F23 /* AppDelegate.m */,
 				41FB88681DE19044001E2F23 /* ViewController */,
@@ -125,6 +161,8 @@
 				41F16DE11DFD9BAF0089ED44 /* SearchAnnotationView.m */,
 				41FB886C1DE19A5C001E2F23 /* ViewInfo.h */,
 				41FB886D1DE19A5C001E2F23 /* ViewInfo.m */,
+				411ED6011E07818A0095D066 /* MenuSearchDraggingButton.h */,
+				411ED6021E07818A0095D066 /* MenuSearchDraggingButton.m */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -143,6 +181,7 @@
 		41FB88681DE19044001E2F23 /* ViewController */ = {
 			isa = PBXGroup;
 			children = (
+				4191A7EC1E05C19000AD4885 /* Information Search */,
 				41CA127D1DE6072B00C16040 /* MBaseViewController.h */,
 				41CA127E1DE6072B00C16040 /* MBaseViewController.m */,
 				41FB88291DE1521A001E2F23 /* MapViewController.h */,
@@ -184,6 +223,7 @@
 				TargetAttributes = {
 					41FB881F1DE1521A001E2F23 = {
 						CreatedOnToolsVersion = 7.3.1;
+						DevelopmentTeam = J5SY383H2R;
 					};
 				};
 			};
@@ -228,12 +268,15 @@
 				41BADA301DFD8BFD004F885F /* MSearchAnnotation.m in Sources */,
 				41CA12821DE607B700C16040 /* MSearchAddressViewController.m in Sources */,
 				41F16DE21DFD9BAF0089ED44 /* SearchAnnotationView.m in Sources */,
+				411ED6081E0796240095D066 /* UIColor+MapLife.m in Sources */,
 				41FB886B1DE1906C001E2F23 /* Annotation.m in Sources */,
 				41FB882B1DE1521A001E2F23 /* MapViewController.m in Sources */,
 				41FB88661DE188A0001E2F23 /* AnnotationView.m in Sources */,
 				41FB88281DE1521A001E2F23 /* AppDelegate.m in Sources */,
+				4191A7EF1E05C1C500AD4885 /* InforMenuSearchViewController.m in Sources */,
 				41FB886E1DE19A5C001E2F23 /* ViewInfo.m in Sources */,
 				41FB88251DE1521A001E2F23 /* main.m in Sources */,
+				411ED6031E07818A0095D066 /* MenuSearchDraggingButton.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -349,6 +392,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEVELOPMENT_TEAM = J5SY383H2R;
 				INFOPLIST_FILE = MapLife/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -364,6 +408,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEVELOPMENT_TEAM = J5SY383H2R;
 				INFOPLIST_FILE = MapLife/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";

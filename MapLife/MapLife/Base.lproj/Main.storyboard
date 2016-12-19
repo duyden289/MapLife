@@ -52,6 +52,60 @@
             </objects>
             <point key="canvasLocation" x="1038" y="315"/>
         </scene>
+        <!--Infor Menu Search View Controller-->
+        <scene sceneID="29e-II-0e5">
+            <objects>
+                <viewController id="kZE-92-Jtd" customClass="InforMenuSearchViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="Tuz-CI-GAa"/>
+                        <viewControllerLayoutGuide type="bottom" id="lgM-in-E0Z"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="XES-1H-d30">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1E3-ne-Pdb" customClass="MenuSearchDraggingButton">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="4om-Bh-Wmk"/>
+                                </constraints>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="G7Y-b6-G63">
+                                <rect key="frame" x="64" y="290" width="472" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="G7Y-b6-G63" firstAttribute="centerX" secondItem="1E3-ne-Pdb" secondAttribute="centerX" id="09c-Zk-ge2"/>
+                            <constraint firstItem="1E3-ne-Pdb" firstAttribute="leading" secondItem="XES-1H-d30" secondAttribute="leading" id="0qh-4m-6dQ"/>
+                            <constraint firstAttribute="trailing" secondItem="1E3-ne-Pdb" secondAttribute="trailing" id="1ez-8l-2QC"/>
+                            <constraint firstAttribute="trailing" secondItem="G7Y-b6-G63" secondAttribute="trailing" constant="64" id="OVt-fL-UlG"/>
+                            <constraint firstItem="G7Y-b6-G63" firstAttribute="centerX" secondItem="XES-1H-d30" secondAttribute="centerX" constant="7" id="TIL-yY-EaR"/>
+                            <constraint firstItem="G7Y-b6-G63" firstAttribute="leading" secondItem="XES-1H-d30" secondAttribute="leadingMargin" constant="44" id="XYN-Qb-bzr"/>
+                            <constraint firstItem="G7Y-b6-G63" firstAttribute="centerY" secondItem="XES-1H-d30" secondAttribute="centerY" id="dku-j3-tNP"/>
+                            <constraint firstItem="1E3-ne-Pdb" firstAttribute="top" secondItem="XES-1H-d30" secondAttribute="top" id="khL-FA-sSO"/>
+                            <constraint firstItem="G7Y-b6-G63" firstAttribute="leading" secondItem="XES-1H-d30" secondAttribute="leading" constant="64" id="nn5-u0-gXu"/>
+                        </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="OVt-fL-UlG"/>
+                                <exclude reference="TIL-yY-EaR"/>
+                                <exclude reference="nn5-u0-gXu"/>
+                            </mask>
+                        </variation>
+                    </view>
+                    <connections>
+                        <outlet property="distanceLabel" destination="G7Y-b6-G63" id="rHn-Mr-weM"/>
+                        <outlet property="draggingButton" destination="1E3-ne-Pdb" id="ZtO-NV-zMk"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="zYA-Le-ynk" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1374" y="1000"/>
+        </scene>
         <!--Search Address View Controller-->
         <scene sceneID="WMT-N7-8Dm">
             <objects>
