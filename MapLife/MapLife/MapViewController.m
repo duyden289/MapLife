@@ -86,6 +86,8 @@ NSString *const StoryboardInforMenuSearchViewController =
  *  Height constraint
  */
 @property (strong, nonatomic) NSLayoutConstraint *heightConstraintView;
+@property (nonatomic, strong) NSMutableArray *arrayAnnotationSearchs;
+@property (nonatomic, strong) SearchAnnotationView *searchannotationView;
 
 @end
 
@@ -109,6 +111,7 @@ NSString *const StoryboardInforMenuSearchViewController =
   [self.locationManager startUpdatingLocation];
 
   self.geocoder = [[CLGeocoder alloc] init];
+    self.arrayAnnotationSearchs = [[NSMutableArray alloc] init];
 }
 
 #pragma Mark MapviewDelegate
@@ -160,14 +163,14 @@ NSString *const StoryboardInforMenuSearchViewController =
   if ([annotation isKindOfClass:[MSearchAnnotation class]]) {
 
     UIImageView *pinView = nil;
-    UIView *calloutView = nil;
+      UIView *calloutView = nil;
+    self.searchannotationView = nil;
+    if (self.searchannotationView == nil) {
 
-    SearchAnnotationView *searchannotationView =
+        self.searchannotationView =
         (SearchAnnotationView *)[mapView
-            dequeueReusableAnnotationViewWithIdentifier:
-                NSStringFromClass([SearchAnnotationView class])];
-    if (!searchannotationView) {
-
+                                 dequeueReusableAnnotationViewWithIdentifier:
+                                 NSStringFromClass([SearchAnnotationView class])];
       pinView = [[UIImageView alloc]
           initWithImage:[UIImage imageNamed:MKPinMapSearchImage]];
 
@@ -177,17 +180,17 @@ NSString *const StoryboardInforMenuSearchViewController =
                                                    options:nil] firstObject];
       [self.viewInfo loadInfoAddress:self.addressUser];
       calloutView = self.viewInfo;
-      searchannotationView = [[SearchAnnotationView alloc]
+      self.searchannotationView = [[SearchAnnotationView alloc]
           initWithAnnotation:annotation
              reuseIdentifier:NSStringFromClass([SearchAnnotationView class])
                      pinView:pinView
                  calloutView:calloutView];
 
     } else {
-      pinView = (UIImageView *)searchannotationView.pinView;
+      pinView = (UIImageView *)self.searchannotationView.pinView;
       pinView.image = [UIImage imageNamed:MKPinmapImage];
     }
-    return searchannotationView;
+    return self.searchannotationView;
   }
   return nil;
 }
@@ -249,8 +252,24 @@ NSString *const StoryboardInforMenuSearchViewController =
                    stringWithFormat:@"%@, %@, %@", self.placeMark.name,
                                     self.placeMark.administrativeArea,
                                     self.placeMark.country];
-
-               [self.mapLifeView addAnnotation:annotation];
+                 if ([annotation isKindOfClass:[MSearchAnnotation class]]) {
+                     
+                     [self.arrayAnnotationSearchs addObject:annotation];
+                     MSearchAnnotation *lastSearchAnnotation = (MSearchAnnotation *)[self.arrayAnnotationSearchs lastObject];
+                     for (MSearchAnnotation *searchAnnotationItem in self.arrayAnnotationSearchs) {
+                         
+                         if (searchAnnotationItem != lastSearchAnnotation) {
+                             
+                             [self.mapLifeView removeAnnotation:searchAnnotationItem];
+                         }
+                     }
+                     [self.mapLifeView addAnnotation:lastSearchAnnotation];
+                     
+                 }
+               else
+               {
+                   [self.mapLifeView addAnnotation:annotation];
+               }
                [self.mapLifeView
                    setRegion:MKCoordinateRegionMakeWithDistance(
                                  annotation.coordinate, 1000, 1000)];
@@ -330,6 +349,8 @@ NSString *const StoryboardInforMenuSearchViewController =
     [self setupAnnotation:self.searchAnnotation location:locationToAddress];
 
     [self plotOnMap:self.route];
+      
+      self.infoMenuSearch = nil;
     // Add search view info
     [self addSearchViewInfo];
 
