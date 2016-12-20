@@ -11,6 +11,7 @@
 #import "InforMenuSearchViewController.h"
 #import "MSearchAddressViewController.h"
 #import "MSearchAnnotation.h"
+#import "MStringValue.h"
 #import "MapViewController.h"
 #import "SearchAnnotationView.h"
 #import "ViewInfo.h"
@@ -85,16 +86,25 @@ NSString *const StoryboardInforMenuSearchViewController =
 /**
  *  Height constraint
  */
-@property (strong, nonatomic) NSLayoutConstraint *heightConstraintView;
-@property (nonatomic, strong) NSMutableArray *arrayAnnotationSearchs;
-@property (nonatomic, strong) SearchAnnotationView *searchannotationView;
-
+@property(strong, nonatomic) NSLayoutConstraint *heightConstraintView;
+/**
+ *  Array containt annotation search
+ */
+@property(nonatomic, strong) NSMutableArray *arrayAnnotationSearchs;
+/**
+ *  Search annotation view
+ */
+@property(nonatomic, strong) SearchAnnotationView *searchannotationView;
+/**
+ * Distance address
+ */
+@property(nonatomic, assign) double addressDistance;
 @end
 
 @implementation MapViewController
 
 /**
- *  <#Description#>
+ *  Overide view did load
  */
 - (void)viewDidLoad {
   [super viewDidLoad];
@@ -111,7 +121,7 @@ NSString *const StoryboardInforMenuSearchViewController =
   [self.locationManager startUpdatingLocation];
 
   self.geocoder = [[CLGeocoder alloc] init];
-    self.arrayAnnotationSearchs = [[NSMutableArray alloc] init];
+  self.arrayAnnotationSearchs = [[NSMutableArray alloc] init];
 }
 
 #pragma Mark MapviewDelegate
@@ -163,14 +173,13 @@ NSString *const StoryboardInforMenuSearchViewController =
   if ([annotation isKindOfClass:[MSearchAnnotation class]]) {
 
     UIImageView *pinView = nil;
-      UIView *calloutView = nil;
+    UIView *calloutView = nil;
     self.searchannotationView = nil;
     if (self.searchannotationView == nil) {
 
-        self.searchannotationView =
-        (SearchAnnotationView *)[mapView
-                                 dequeueReusableAnnotationViewWithIdentifier:
-                                 NSStringFromClass([SearchAnnotationView class])];
+      self.searchannotationView = (SearchAnnotationView *)[mapView
+          dequeueReusableAnnotationViewWithIdentifier:
+              NSStringFromClass([SearchAnnotationView class])];
       pinView = [[UIImageView alloc]
           initWithImage:[UIImage imageNamed:MKPinMapSearchImage]];
 
@@ -252,23 +261,23 @@ NSString *const StoryboardInforMenuSearchViewController =
                    stringWithFormat:@"%@, %@, %@", self.placeMark.name,
                                     self.placeMark.administrativeArea,
                                     self.placeMark.country];
-                 if ([annotation isKindOfClass:[MSearchAnnotation class]]) {
-                     
-                     [self.arrayAnnotationSearchs addObject:annotation];
-                     MSearchAnnotation *lastSearchAnnotation = (MSearchAnnotation *)[self.arrayAnnotationSearchs lastObject];
-                     for (MSearchAnnotation *searchAnnotationItem in self.arrayAnnotationSearchs) {
-                         
-                         if (searchAnnotationItem != lastSearchAnnotation) {
-                             
-                             [self.mapLifeView removeAnnotation:searchAnnotationItem];
-                         }
-                     }
-                     [self.mapLifeView addAnnotation:lastSearchAnnotation];
-                     
+               if ([annotation isKindOfClass:[MSearchAnnotation class]]) {
+
+                 [self.arrayAnnotationSearchs addObject:annotation];
+                 MSearchAnnotation *lastSearchAnnotation = (MSearchAnnotation *)
+                     [self.arrayAnnotationSearchs lastObject];
+                 for (MSearchAnnotation *searchAnnotationItem in self
+                          .arrayAnnotationSearchs) {
+
+                   if (searchAnnotationItem != lastSearchAnnotation) {
+
+                     [self.mapLifeView removeAnnotation:searchAnnotationItem];
+                   }
                  }
-               else
-               {
-                   [self.mapLifeView addAnnotation:annotation];
+                 [self.mapLifeView addAnnotation:lastSearchAnnotation];
+
+               } else {
+                 [self.mapLifeView addAnnotation:annotation];
                }
                [self.mapLifeView
                    setRegion:MKCoordinateRegionMakeWithDistance(
@@ -334,11 +343,13 @@ NSString *const StoryboardInforMenuSearchViewController =
 
       NSLog(@"Rout Name : %@", rout.name);
       NSLog(@"Total Distance (in Meters) :%f", rout.distance);
+      self.addressDistance = rout.distance;
+
       NSArray *steps = [rout steps];
-      NSLog(@"Total Steps : %lu", (unsigned long)[steps count]);
-      [steps enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-        NSLog(@"Rout Instruction : %@", [obj instructions]);
-        NSLog(@"Rout Distance : %f", [obj distance]);
+      //      NSLog(@"Total Steps : %lu", (unsigned long)[steps count]);
+      [steps enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop){
+          //        NSLog(@"Rout Instruction : %@", [obj instructions]);
+          //        NSLog(@"Rout Distance : %f", [obj distance]);
       }];
     }];
     self.searchAnnotation = [MSearchAnnotation new];
@@ -349,23 +360,28 @@ NSString *const StoryboardInforMenuSearchViewController =
     [self setupAnnotation:self.searchAnnotation location:locationToAddress];
 
     [self plotOnMap:self.route];
-      
-      self.infoMenuSearch = nil;
+
+    self.infoMenuSearch = nil;
     // Add search view info
-    [self addSearchViewInfo];
+    [self addSearchViewInfo:self.addressDistance];
 
   }];
 }
-- (void)addSearchViewInfo {
+/**
+ *  Add search menu info
+ *
+ *  @param distance Distance address
+ */
+- (void)addSearchViewInfo:(double)distance {
 
   // Setup infor menu search
-    if (self.infoMenuSearch == nil) {
-        
-        self.infoMenuSearch =
+  if (self.infoMenuSearch == nil) {
+
+    self.infoMenuSearch =
         [self.storyboard instantiateViewControllerWithIdentifier:
-         StoryboardInforMenuSearchViewController];
-    }
-    
+                             StoryboardInforMenuSearchViewController];
+  }
+
   self.infoMenuSearch.delegate = self;
   // Add infor search to view
   [self addChildViewController:self.infoMenuSearch];
@@ -419,6 +435,12 @@ NSString *const StoryboardInforMenuSearchViewController =
   // Add constraint of the View to the Card View
   [parent addConstraints:@[ leftConstraintView, bottom, rightConstraintView ]];
   [subView addConstraint:self.heightConstraintView];
+  NSDictionary *dictionaryDistance =
+      @{MKeyDistanceName : [NSNumber numberWithDouble:distance]};
+  [[NSNotificationCenter defaultCenter]
+      postNotificationName:MNotificationDistanceName
+                    object:nil
+                  userInfo:dictionaryDistance];
 }
 #pragma mark Unitily method
 - (void)plotOnMap:(MKRoute *)route {
@@ -441,16 +463,14 @@ NSString *const StoryboardInforMenuSearchViewController =
 }
 #pragma mark InforMenuSearchViewControlerDelegate
 - (void)movingContainerScrollWithView:(UIView *)view andRect:(CGRect)rect {
-    
-    view.frame = rect;
-    if (self.infoMenuSearch.isUpMoving)
-    {
-        self.heightConstraintView.constant -= self.infoMenuSearch.distanceMoving;
-    }
-    else
-    {
-        self.heightConstraintView.constant += self.infoMenuSearch.distanceMoving;
-    }
-    [self.infoMenuSearch.view setNeedsLayout];
+
+  view.frame = rect;
+  if (self.infoMenuSearch.isUpMoving) {
+    self.heightConstraintView.constant -= self.infoMenuSearch.distanceMoving;
+  } else {
+    self.heightConstraintView.constant += self.infoMenuSearch.distanceMoving;
+  }
+  [self.infoMenuSearch.view setNeedsLayout];
 }
+
 @end

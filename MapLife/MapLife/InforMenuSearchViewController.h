@@ -9,6 +9,8 @@
 #import "MenuSearchDraggingButton.h"
 #import <UIKit/UIKit.h>
 
+extern NSString *const MKeyDistanceName;
+
 @protocol InforMenuSearchViewControllerDelegate <NSObject>
 
 - (void)movingContainerScrollWithView:(UIView *)view andRect:(CGRect)rect;
@@ -23,10 +25,9 @@
 /**
  *  Distance when dragging view
  */
-@property (nonatomic, assign) CGFloat distanceMoving;
+@property(nonatomic, assign) CGFloat distanceMoving;
 /**
  *  Orientation moving
  */
-@property (nonatomic, assign) BOOL isUpMoving;
-
+@property(nonatomic, assign) BOOL isUpMoving;
 @end

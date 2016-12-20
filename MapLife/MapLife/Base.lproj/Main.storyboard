@@ -66,39 +66,58 @@
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1E3-ne-Pdb" customClass="MenuSearchDraggingButton">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="34"/>
+                                <color key="backgroundColor" red="0.80286343996989595" green="1" blue="0.10722057986502342" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="34" id="4om-Bh-Wmk"/>
                                 </constraints>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="G7Y-b6-G63">
-                                <rect key="frame" x="64" y="290" width="472" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Yyb-vs-G30">
+                                <rect key="frame" x="171" y="283" width="258" height="57"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="G7Y-b6-G63">
+                                        <rect key="frame" x="20" y="8" width="148" height="42"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="148" id="bcr-cn-O0h"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qA4-Rs-QEH">
+                                        <rect key="frame" x="167" y="8" width="71" height="42"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="71" id="1PS-cG-Dgu"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstItem="G7Y-b6-G63" firstAttribute="top" secondItem="Yyb-vs-G30" secondAttribute="top" constant="8" id="2YM-IJ-Zcz"/>
+                                    <constraint firstItem="G7Y-b6-G63" firstAttribute="leading" secondItem="Yyb-vs-G30" secondAttribute="leading" constant="20" id="4Sj-3n-txW"/>
+                                    <constraint firstItem="qA4-Rs-QEH" firstAttribute="top" secondItem="Yyb-vs-G30" secondAttribute="top" constant="8" id="BWf-rf-khj"/>
+                                    <constraint firstAttribute="bottom" secondItem="G7Y-b6-G63" secondAttribute="bottom" constant="7" id="LE3-LO-VXb"/>
+                                    <constraint firstAttribute="trailing" secondItem="qA4-Rs-QEH" secondAttribute="trailing" constant="20" id="a7Q-e1-1VV"/>
+                                    <constraint firstAttribute="width" constant="258" id="aUf-Mt-bPU"/>
+                                    <constraint firstAttribute="bottom" secondItem="qA4-Rs-QEH" secondAttribute="bottom" constant="7" id="c2h-1q-mub"/>
+                                    <constraint firstAttribute="height" constant="57" id="xcW-0g-gNN"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="G7Y-b6-G63" firstAttribute="centerX" secondItem="1E3-ne-Pdb" secondAttribute="centerX" id="09c-Zk-ge2"/>
                             <constraint firstItem="1E3-ne-Pdb" firstAttribute="leading" secondItem="XES-1H-d30" secondAttribute="leading" id="0qh-4m-6dQ"/>
                             <constraint firstAttribute="trailing" secondItem="1E3-ne-Pdb" secondAttribute="trailing" id="1ez-8l-2QC"/>
-                            <constraint firstAttribute="trailing" secondItem="G7Y-b6-G63" secondAttribute="trailing" constant="64" id="OVt-fL-UlG"/>
-                            <constraint firstItem="G7Y-b6-G63" firstAttribute="centerX" secondItem="XES-1H-d30" secondAttribute="centerX" constant="7" id="TIL-yY-EaR"/>
-                            <constraint firstItem="G7Y-b6-G63" firstAttribute="leading" secondItem="XES-1H-d30" secondAttribute="leadingMargin" constant="44" id="XYN-Qb-bzr"/>
-                            <constraint firstItem="G7Y-b6-G63" firstAttribute="centerY" secondItem="XES-1H-d30" secondAttribute="centerY" id="dku-j3-tNP"/>
+                            <constraint firstItem="Yyb-vs-G30" firstAttribute="centerX" secondItem="XES-1H-d30" secondAttribute="centerX" id="Cp1-zV-Mep"/>
+                            <constraint firstItem="Yyb-vs-G30" firstAttribute="centerY" secondItem="XES-1H-d30" secondAttribute="centerY" constant="11.5" id="Yii-NR-KhQ"/>
+                            <constraint firstItem="Yyb-vs-G30" firstAttribute="top" secondItem="1E3-ne-Pdb" secondAttribute="bottom" constant="249" id="byc-8Y-ecY"/>
                             <constraint firstItem="1E3-ne-Pdb" firstAttribute="top" secondItem="XES-1H-d30" secondAttribute="top" id="khL-FA-sSO"/>
-                            <constraint firstItem="G7Y-b6-G63" firstAttribute="leading" secondItem="XES-1H-d30" secondAttribute="leading" constant="64" id="nn5-u0-gXu"/>
                         </constraints>
-                        <variation key="default">
-                            <mask key="constraints">
-                                <exclude reference="OVt-fL-UlG"/>
-                                <exclude reference="TIL-yY-EaR"/>
-                                <exclude reference="nn5-u0-gXu"/>
-                            </mask>
-                        </variation>
                     </view>
                     <connections>
-                        <outlet property="distanceLabel" destination="G7Y-b6-G63" id="rHn-Mr-weM"/>
+                        <outlet property="UnitsDistanceLabel" destination="qA4-Rs-QEH" id="K4C-yW-c1q"/>
+                        <outlet property="distanceLabel" destination="G7Y-b6-G63" id="WfO-cc-rcN"/>
                         <outlet property="draggingButton" destination="1E3-ne-Pdb" id="ZtO-NV-zMk"/>
                     </connections>
                 </viewController>
