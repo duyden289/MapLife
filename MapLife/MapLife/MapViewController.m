@@ -82,6 +82,10 @@ NSString *const StoryboardInforMenuSearchViewController =
  *  Infor menu search
  */
 @property(nonatomic, strong) InforMenuSearchViewController *infoMenuSearch;
+/**
+ *  Height constraint
+ */
+@property (strong, nonatomic) NSLayoutConstraint *heightConstraintView;
 
 @end
 
@@ -334,9 +338,13 @@ NSString *const StoryboardInforMenuSearchViewController =
 - (void)addSearchViewInfo {
 
   // Setup infor menu search
-  self.infoMenuSearch =
-      [self.storyboard instantiateViewControllerWithIdentifier:
-                           StoryboardInforMenuSearchViewController];
+    if (self.infoMenuSearch == nil) {
+        
+        self.infoMenuSearch =
+        [self.storyboard instantiateViewControllerWithIdentifier:
+         StoryboardInforMenuSearchViewController];
+    }
+    
   self.infoMenuSearch.delegate = self;
   // Add infor search to view
   [self addChildViewController:self.infoMenuSearch];
@@ -378,7 +386,7 @@ NSString *const StoryboardInforMenuSearchViewController =
                                     constant:0.0];
 
   // Height to be fixed for SubView same as AdHeight
-  NSLayoutConstraint *heightConstraintView =
+  self.heightConstraintView =
       [NSLayoutConstraint constraintWithItem:subView
                                    attribute:NSLayoutAttributeHeight
                                    relatedBy:NSLayoutRelationEqual
@@ -389,7 +397,7 @@ NSString *const StoryboardInforMenuSearchViewController =
 
   // Add constraint of the View to the Card View
   [parent addConstraints:@[ leftConstraintView, bottom, rightConstraintView ]];
-  [subView addConstraint:heightConstraintView];
+  [subView addConstraint:self.heightConstraintView];
 }
 #pragma mark Unitily method
 - (void)plotOnMap:(MKRoute *)route {
@@ -412,5 +420,16 @@ NSString *const StoryboardInforMenuSearchViewController =
 }
 #pragma mark InforMenuSearchViewControlerDelegate
 - (void)movingContainerScrollWithView:(UIView *)view andRect:(CGRect)rect {
+    
+    view.frame = rect;
+    if (self.infoMenuSearch.isUpMoving)
+    {
+        self.heightConstraintView.constant -= self.infoMenuSearch.distanceMoving;
+    }
+    else
+    {
+        self.heightConstraintView.constant += self.infoMenuSearch.distanceMoving;
+    }
+    [self.infoMenuSearch.view setNeedsLayout];
 }
 @end
