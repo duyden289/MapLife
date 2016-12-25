@@ -94,11 +94,35 @@
                             </label>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zlp-x7-T0R">
                                 <rect key="frame" x="0.0" y="80" width="200" height="81"/>
-                                <color key="backgroundColor" red="1" green="0.23492160221454805" blue="0.67193867019355191" alpha="1" colorSpace="calibratedRGB"/>
+                                <subviews>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Sunny" translatesAutoresizingMaskIntoConstraints="NO" id="x2B-le-HgJ">
+                                        <rect key="frame" x="60" y="0.0" width="81" height="81"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="81" id="uua-Sw-y4F"/>
+                                            <constraint firstAttribute="width" constant="81" id="xaJ-dT-wvF"/>
+                                        </constraints>
+                                    </imageView>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstItem="x2B-le-HgJ" firstAttribute="centerX" secondItem="zlp-x7-T0R" secondAttribute="centerX" id="Ad0-uz-Ele"/>
+                                    <constraint firstItem="x2B-le-HgJ" firstAttribute="centerY" secondItem="zlp-x7-T0R" secondAttribute="centerY" id="YI6-uX-f2j"/>
+                                </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ySa-0B-BuQ">
                                 <rect key="frame" x="400" y="80" width="200" height="81"/>
-                                <color key="backgroundColor" red="0.50657243744588187" green="1" blue="0.42802948434035404" alpha="1" colorSpace="calibratedRGB"/>
+                                <subviews>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Rainy" translatesAutoresizingMaskIntoConstraints="NO" id="zJM-Ne-htR">
+                                        <rect key="frame" x="60" y="0.0" width="81" height="81"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="81" id="8G9-ci-EVh"/>
+                                            <constraint firstAttribute="height" constant="81" id="ypa-Sk-D8Z"/>
+                                        </constraints>
+                                    </imageView>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstItem="zJM-Ne-htR" firstAttribute="centerY" secondItem="ySa-0B-BuQ" secondAttribute="centerY" id="LKa-ox-uzR"/>
+                                    <constraint firstItem="zJM-Ne-htR" firstAttribute="centerX" secondItem="ySa-0B-BuQ" secondAttribute="centerX" id="gOX-Zy-kxD"/>
+                                </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4PW-yJ-ght">
                                 <rect key="frame" x="200" y="80" width="200" height="81"/>
@@ -337,6 +361,8 @@
         </scene>
     </scenes>
     <resources>
+        <image name="Rainy" width="256" height="256"/>
+        <image name="Sunny" width="256" height="256"/>
         <image name="iconSearch" width="128" height="128"/>
     </resources>
 </document>
