@@ -16,6 +16,10 @@
 #import "SearchAnnotationView.h"
 #import "ViewInfo.h"
 #import <MapKit/MapKit.h>
+#import "MWeatherLocationCurrentAddressService.h"
+#import "MWeatherLocationToAddressService.h"
+#import "MWeatherImageService.h"
+
 /**
  *  Image name pin map
  */
@@ -98,7 +102,12 @@ NSString *const StoryboardInforMenuSearchViewController =
 /**
  * Distance address
  */
-@property(nonatomic, assign) double addressDistance;
+@property (nonatomic, assign) double addressDistance;
+/**
+ * Coordinate
+ */
+@property (nonatomic, assign) CGFloat latitude;
+@property (nonatomic, assign) CGFloat longitude;
 @end
 
 @implementation MapViewController
@@ -304,6 +313,9 @@ NSString *const StoryboardInforMenuSearchViewController =
                     (CLLocationCoordinate2D)locationCoordinateToAddress {
 
   MKDirectionsRequest *directionRequest = [MKDirectionsRequest new];
+    MWeatherLocationCurrentAddressService *weatherCurrentAddressService = [[MWeatherLocationCurrentAddressService alloc] init];
+    MWeatherLocationToAddressService *weatherToAddressService = [[MWeatherLocationToAddressService alloc] init];
+    
   MKPlacemark *fromPlacemark;
   if (lroundf(locationCoordinateFromAddress.latitude) == 0 &&
       lroundf(locationCoordinateFromAddress.longitude) == 0) {
@@ -311,11 +323,16 @@ NSString *const StoryboardInforMenuSearchViewController =
     fromPlacemark =
         [[MKPlacemark alloc] initWithCoordinate:self.location.coordinate
                               addressDictionary:nil];
+      self.latitude = self.location.coordinate.latitude;
+      self.longitude = self.location.coordinate.longitude;
   } else {
     fromPlacemark =
         [[MKPlacemark alloc] initWithCoordinate:locationCoordinateFromAddress
                               addressDictionary:nil];
+      self.latitude = locationCoordinateFromAddress.latitude;
+      self.longitude = locationCoordinateFromAddress.longitude;
   }
+  
   MKMapItem *fromItem = [[MKMapItem alloc] initWithPlacemark:fromPlacemark];
 
   MKPlacemark *toPlacemark =
@@ -356,14 +373,37 @@ NSString *const StoryboardInforMenuSearchViewController =
     CLLocation *locationToAddress = [[CLLocation alloc]
         initWithLatitude:locationCoordinateToAddress.latitude
                longitude:locationCoordinateToAddress.longitude];
-    // Setup annotation
-    [self setupAnnotation:self.searchAnnotation location:locationToAddress];
-
-    [self plotOnMap:self.route];
-
-    self.infoMenuSearch = nil;
-    // Add search view info
-    [self addSearchViewInfo:self.addressDistance];
+      // Request weather
+      [weatherCurrentAddressService startRequestOnCompleteWithLatitude:self.latitude andLongitude:self.longitude successHanlde:^(NSArray *weatherList) {
+          NSLog(@"====CURRENT WEARTHER=======%@", weatherList);
+          
+          [weatherToAddressService startRequestOnCompleteWithLatitude:locationCoordinateToAddress.latitude andLongitude:locationCoordinateToAddress.longitude successHanlde:^(NSArray *weatherList) {
+              NSLog(@"====TO WEARTHER=======%@", weatherList);
+              
+              // Setup annotation
+              [self setupAnnotation:self.searchAnnotation location:locationToAddress];
+              
+              [self plotOnMap:self.route];
+              
+              self.infoMenuSearch = nil;
+              // Add search view info
+              [self addSearchViewInfo:self.addressDistance];
+              
+          } onError:^(NSString *errorString) {
+              
+          }];
+          
+      } onError:^(NSString *errorString) {
+          
+      }];
+//    // Setup annotation
+//    [self setupAnnotation:self.searchAnnotation location:locationToAddress];
+//
+//    [self plotOnMap:self.route];
+//
+//    self.infoMenuSearch = nil;
+//    // Add search view info
+//    [self addSearchViewInfo:self.addressDistance];
 
   }];
 }

@@ -15,7 +15,15 @@
 		41CA127F1DE6072B00C16040 /* MBaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 41CA127E1DE6072B00C16040 /* MBaseViewController.m */; };
 		41CA12821DE607B700C16040 /* MSearchAddressViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 41CA12811DE607B700C16040 /* MSearchAddressViewController.m */; };
 		41CA12841DE60D2100C16040 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 41CA12831DE60D2100C16040 /* CoreGraphics.framework */; };
+		41E21F761E1DF0EC00133C25 /* MWeatherToAddressInfoData.m in Sources */ = {isa = PBXBuildFile; fileRef = 41E21F751E1DF0EC00133C25 /* MWeatherToAddressInfoData.m */; };
+		41E21F791E1DF1F600133C25 /* MWeatherLocationToAddressService.m in Sources */ = {isa = PBXBuildFile; fileRef = 41E21F781E1DF1F600133C25 /* MWeatherLocationToAddressService.m */; };
+		41E42E9B1E1CE78700F8AB0D /* MServiceBase.m in Sources */ = {isa = PBXBuildFile; fileRef = 41E42E9A1E1CE78700F8AB0D /* MServiceBase.m */; };
+		41E42E9D1E1CF07500F8AB0D /* Config_Server.plist in Resources */ = {isa = PBXBuildFile; fileRef = 41E42E9C1E1CF07500F8AB0D /* Config_Server.plist */; };
+		41E42EA11E1CF18E00F8AB0D /* MServerURI.m in Sources */ = {isa = PBXBuildFile; fileRef = 41E42EA01E1CF18E00F8AB0D /* MServerURI.m */; };
+		41E42EA71E1CF55000F8AB0D /* MWeatherImageService.m in Sources */ = {isa = PBXBuildFile; fileRef = 41E42EA61E1CF55000F8AB0D /* MWeatherImageService.m */; };
+		41E42EAA1E1CFA2200F8AB0D /* MWeatherCurrentAddressInfoData.m in Sources */ = {isa = PBXBuildFile; fileRef = 41E42EA91E1CFA2200F8AB0D /* MWeatherCurrentAddressInfoData.m */; };
 		41F16DE21DFD9BAF0089ED44 /* SearchAnnotationView.m in Sources */ = {isa = PBXBuildFile; fileRef = 41F16DE11DFD9BAF0089ED44 /* SearchAnnotationView.m */; };
+		41F909DA1E1DFD0A009F5151 /* MWeatherLocationCurrentAddressService.m in Sources */ = {isa = PBXBuildFile; fileRef = 41F909D91E1DFD0A009F5151 /* MWeatherLocationCurrentAddressService.m */; };
 		41FB88251DE1521A001E2F23 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 41FB88241DE1521A001E2F23 /* main.m */; };
 		41FB88281DE1521A001E2F23 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 41FB88271DE1521A001E2F23 /* AppDelegate.m */; };
 		41FB882B1DE1521A001E2F23 /* MapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 41FB882A1DE1521A001E2F23 /* MapViewController.m */; };
@@ -47,8 +55,23 @@
 		41CA12801DE607B700C16040 /* MSearchAddressViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MSearchAddressViewController.h; sourceTree = "<group>"; };
 		41CA12811DE607B700C16040 /* MSearchAddressViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MSearchAddressViewController.m; sourceTree = "<group>"; };
 		41CA12831DE60D2100C16040 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		41E21F741E1DF0EC00133C25 /* MWeatherToAddressInfoData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWeatherToAddressInfoData.h; sourceTree = "<group>"; };
+		41E21F751E1DF0EC00133C25 /* MWeatherToAddressInfoData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MWeatherToAddressInfoData.m; sourceTree = "<group>"; };
+		41E21F771E1DF1F600133C25 /* MWeatherLocationToAddressService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWeatherLocationToAddressService.h; sourceTree = "<group>"; };
+		41E21F781E1DF1F600133C25 /* MWeatherLocationToAddressService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MWeatherLocationToAddressService.m; sourceTree = "<group>"; };
+		41E42E991E1CE78700F8AB0D /* MServiceBase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MServiceBase.h; sourceTree = "<group>"; };
+		41E42E9A1E1CE78700F8AB0D /* MServiceBase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MServiceBase.m; sourceTree = "<group>"; };
+		41E42E9C1E1CF07500F8AB0D /* Config_Server.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Config_Server.plist; sourceTree = "<group>"; };
+		41E42E9F1E1CF18E00F8AB0D /* MServerURI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MServerURI.h; sourceTree = "<group>"; };
+		41E42EA01E1CF18E00F8AB0D /* MServerURI.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MServerURI.m; sourceTree = "<group>"; };
+		41E42EA21E1CF52200F8AB0D /* MWeatherLocationCurrentAddressService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWeatherLocationCurrentAddressService.h; sourceTree = "<group>"; };
+		41E42EA51E1CF55000F8AB0D /* MWeatherImageService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWeatherImageService.h; sourceTree = "<group>"; };
+		41E42EA61E1CF55000F8AB0D /* MWeatherImageService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MWeatherImageService.m; sourceTree = "<group>"; };
+		41E42EA81E1CFA2200F8AB0D /* MWeatherCurrentAddressInfoData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWeatherCurrentAddressInfoData.h; sourceTree = "<group>"; };
+		41E42EA91E1CFA2200F8AB0D /* MWeatherCurrentAddressInfoData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MWeatherCurrentAddressInfoData.m; sourceTree = "<group>"; };
 		41F16DE01DFD9BAF0089ED44 /* SearchAnnotationView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchAnnotationView.h; sourceTree = "<group>"; };
 		41F16DE11DFD9BAF0089ED44 /* SearchAnnotationView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchAnnotationView.m; sourceTree = "<group>"; };
+		41F909D91E1DFD0A009F5151 /* MWeatherLocationCurrentAddressService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MWeatherLocationCurrentAddressService.m; sourceTree = "<group>"; };
 		41FB88201DE1521A001E2F23 /* MapLife.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MapLife.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		41FB88241DE1521A001E2F23 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		41FB88261DE1521A001E2F23 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -110,9 +133,34 @@
 			name = "Information Search";
 			sourceTree = "<group>";
 		};
+		41E42E981E1CE73C00F8AB0D /* Service */ = {
+			isa = PBXGroup;
+			children = (
+				41F909D91E1DFD0A009F5151 /* MWeatherLocationCurrentAddressService.m */,
+				41E21F771E1DF1F600133C25 /* MWeatherLocationToAddressService.h */,
+				41E21F781E1DF1F600133C25 /* MWeatherLocationToAddressService.m */,
+				41E42E991E1CE78700F8AB0D /* MServiceBase.h */,
+				41E42E9A1E1CE78700F8AB0D /* MServiceBase.m */,
+				41E42EA21E1CF52200F8AB0D /* MWeatherLocationCurrentAddressService.h */,
+				41E42EA51E1CF55000F8AB0D /* MWeatherImageService.h */,
+				41E42EA61E1CF55000F8AB0D /* MWeatherImageService.m */,
+			);
+			name = Service;
+			sourceTree = "<group>";
+		};
+		41E42E9E1E1CF14E00F8AB0D /* Constant */ = {
+			isa = PBXGroup;
+			children = (
+				41E42E9F1E1CF18E00F8AB0D /* MServerURI.h */,
+				41E42EA01E1CF18E00F8AB0D /* MServerURI.m */,
+			);
+			name = Constant;
+			sourceTree = "<group>";
+		};
 		41FB88171DE1521A001E2F23 = {
 			isa = PBXGroup;
 			children = (
+				41E42E9C1E1CF07500F8AB0D /* Config_Server.plist */,
 				41FB88221DE1521A001E2F23 /* MapLife */,
 				41FB88211DE1521A001E2F23 /* Products */,
 			);
@@ -129,6 +177,8 @@
 		41FB88221DE1521A001E2F23 /* MapLife */ = {
 			isa = PBXGroup;
 			children = (
+				41E42E9E1E1CF14E00F8AB0D /* Constant */,
+				41E42E981E1CE73C00F8AB0D /* Service */,
 				411ED6041E0795450095D066 /* Common */,
 				41BC8C571E0983CF000B89DA /* Configure.h */,
 				41FB88261DE1521A001E2F23 /* AppDelegate.h */,
@@ -177,10 +227,14 @@
 		41FB88671DE1903C001E2F23 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				41E21F741E1DF0EC00133C25 /* MWeatherToAddressInfoData.h */,
+				41E21F751E1DF0EC00133C25 /* MWeatherToAddressInfoData.m */,
 				41FB88691DE1906B001E2F23 /* Annotation.h */,
 				41FB886A1DE1906C001E2F23 /* Annotation.m */,
 				41BADA2E1DFD8BFD004F885F /* MSearchAnnotation.h */,
 				41BADA2F1DFD8BFD004F885F /* MSearchAnnotation.m */,
+				41E42EA81E1CFA2200F8AB0D /* MWeatherCurrentAddressInfoData.h */,
+				41E42EA91E1CFA2200F8AB0D /* MWeatherCurrentAddressInfoData.m */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -225,6 +279,7 @@
 		41FB88181DE1521A001E2F23 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				CLASSPREFIX = M;
 				LastUpgradeCheck = 0730;
 				ORGANIZATIONNAME = DenNH;
 				TargetAttributes = {
@@ -261,6 +316,7 @@
 				41FB88331DE1521A001E2F23 /* LaunchScreen.storyboard in Resources */,
 				41FB88301DE1521A001E2F23 /* Assets.xcassets in Resources */,
 				41FB882E1DE1521A001E2F23 /* Main.storyboard in Resources */,
+				41E42E9D1E1CF07500F8AB0D /* Config_Server.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -271,20 +327,27 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				41E42EAA1E1CFA2200F8AB0D /* MWeatherCurrentAddressInfoData.m in Sources */,
 				41CA127F1DE6072B00C16040 /* MBaseViewController.m in Sources */,
 				41BADA301DFD8BFD004F885F /* MSearchAnnotation.m in Sources */,
 				41CA12821DE607B700C16040 /* MSearchAddressViewController.m in Sources */,
 				41F16DE21DFD9BAF0089ED44 /* SearchAnnotationView.m in Sources */,
 				418618871E09976C005A0EE8 /* MStringValue.m in Sources */,
 				411ED6081E0796240095D066 /* UIColor+MapLife.m in Sources */,
+				41F909DA1E1DFD0A009F5151 /* MWeatherLocationCurrentAddressService.m in Sources */,
 				41FB886B1DE1906C001E2F23 /* Annotation.m in Sources */,
 				41FB882B1DE1521A001E2F23 /* MapViewController.m in Sources */,
+				41E42E9B1E1CE78700F8AB0D /* MServiceBase.m in Sources */,
 				41FB88661DE188A0001E2F23 /* AnnotationView.m in Sources */,
 				41FB88281DE1521A001E2F23 /* AppDelegate.m in Sources */,
+				41E42EA11E1CF18E00F8AB0D /* MServerURI.m in Sources */,
+				41E21F791E1DF1F600133C25 /* MWeatherLocationToAddressService.m in Sources */,
 				4191A7EF1E05C1C500AD4885 /* InforMenuSearchViewController.m in Sources */,
 				41FB886E1DE19A5C001E2F23 /* ViewInfo.m in Sources */,
 				41FB88251DE1521A001E2F23 /* main.m in Sources */,
 				411ED6031E07818A0095D066 /* MenuSearchDraggingButton.m in Sources */,
+				41E42EA71E1CF55000F8AB0D /* MWeatherImageService.m in Sources */,
+				41E21F761E1DF0EC00133C25 /* MWeatherToAddressInfoData.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
