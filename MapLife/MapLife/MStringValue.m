@@ -8,7 +8,7 @@
 
 #import "MStringValue.h"
 
-NSString *const MNotificationDistanceName = @"MNotificationDistance";
+NSString *const MNotificationInformationName = @"MNotificationInformationName";
 
 @implementation MStringValue
 

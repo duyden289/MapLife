@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-extern NSString *const MNotificationDistanceName;
+extern NSString *const MNotificationInformationName;
 
 @interface MStringValue : NSObject
 

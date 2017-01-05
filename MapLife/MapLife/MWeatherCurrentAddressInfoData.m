@@ -10,16 +10,17 @@
 
 @implementation MWeatherCurrentAddressInfoData
 
-- (instancetype)initWithTemperature:(NSString *)temperature andImageWeather:(NSString *)imageWeatherName
-{
-    self = [super init];
-    if (self != nil) {
-    
-        _temperature = temperature;
-        _imageNameWeather = imageWeatherName;
-        
-    }
-    return self;
+- (instancetype)initWithTemperature:(NSString *)temperature
+                      immageWeather:(NSString *)imageWeatherName
+              andDescriptionWeather:(NSString *)descriptionWeather {
+  self = [super init];
+  if (self != nil) {
+
+    _temperature = temperature;
+    _imageNameWeather = imageWeatherName;
+    _descriptionWeather = descriptionWeather;
+  }
+  return self;
 }
 
 @end

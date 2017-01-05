@@ -10,6 +10,8 @@
 
 @interface MWeatherImageService : MServiceBase
 
-- (void)startRequestDownloadImageWeather:(NSString *)nameImageFile onCompleteData:(void (^)(NSData *dataImage))completeHandle;
+- (void)startRequestDownloadImageWeather:(NSString *)nameImageFile
+                          onCompleteData:
+                              (void (^)(NSData *dataImage))completeHandle;
 
 @end

@@ -19,6 +19,7 @@ extern NSString *const MWeatherKeyName;
 extern NSString *const MMainWeatherKeyName;
 extern NSString *const MTemperatureKeyName;
 extern NSString *const MImageKeyName;
+extern NSString *const MDescriptionWeatherName;
 extern NSString *const MAPIKeyWeather;
 
 @protocol MServiceBaseDelegate <NSObject>
@@ -26,13 +27,12 @@ extern NSString *const MAPIKeyWeather;
 - (void)requestDidReviceNormalData:(NSData *)responseData;
 - (void)requestDidReviceErrorFromServer:(NSData *)errorData;
 
-
 @end
 
 @interface MServiceBase : NSObject
 
-@property (nonatomic, weak) id<MServiceBaseDelegate> delegate;
-@property (nonatomic, copy)void(^ errorHandleString)(NSString *errorString);
+@property(nonatomic, weak) id<MServiceBaseDelegate> delegate;
+@property(nonatomic, copy) void (^errorHandleString)(NSString *errorString);
 
 - (void)startRequest:(NSURLRequest *)request;
 - (void)cancel;

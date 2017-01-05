@@ -10,8 +10,11 @@
 
 @interface MWeatherToAddressInfoData : NSObject
 
-@property (nonatomic, strong) NSString *temperature;
-@property (nonatomic, strong) NSString *imageNameWeather;
+@property(nonatomic, strong) NSString *temperature;
+@property(nonatomic, strong) NSString *imageNameWeather;
+@property(nonatomic, strong) NSString *descriptionWeather;
 
-- (instancetype)initWithTemperature:(NSString *)temperature andImageWeather:(NSString *)imageWeatherName;
+- (instancetype)initWithTemperature:(NSString *)temperature
+                      immageWeather:(NSString *)imageWeatherName
+              andDescriptionWeather:(NSString *)descriptionWeather;
 @end

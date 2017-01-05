@@ -10,7 +10,7 @@
 
 @interface MServerURI : NSObject
 
-+(MServerURI *)sharedInstance;
++ (MServerURI *)sharedInstance;
 - (NSString *)APIWeatherServer;
 - (NSString *)APIWeatherServerImage;
 

@@ -12,6 +12,14 @@
 #import "UIColor+MapLife.h"
 
 NSString *const MKeyDistanceName = @"distance";
+NSString *const MKeyImageCurrentWeatherName = @"imageCurrentWeather";
+NSString *const MKeyImageWeatherToAddress = @"imageWeatherToAddress";
+NSString *const MKeyDescriptionCurrentWeather = @"descriptionCurrentWeather";
+NSString *const MKeyDescriptionWeatherToAddress =
+    @"descriptionWeatherToAddress";
+NSString *const MKeyTemperatureCurrentWeather = @"temperatureCurrentWeather";
+NSString *const MKeyTemperatureWeatherToAddress =
+    @"temperatureWeatherToAddress";
 
 @interface InforMenuSearchViewController ()
 /**
@@ -19,6 +27,10 @@ NSString *const MKeyDistanceName = @"distance";
  */
 @property(weak, nonatomic) IBOutlet UILabel *distanceLabel;
 @property(weak, nonatomic) IBOutlet UILabel *UnitsDistanceLabel;
+@property(weak, nonatomic) IBOutlet UILabel *descriptionWeatherToAddress;
+@property(weak, nonatomic) IBOutlet UIImageView *imageWeatherToAddress;
+@property(weak, nonatomic) IBOutlet UIImageView *imageWeatherCurrentAddress;
+@property(weak, nonatomic) IBOutlet UILabel *descriptionWeatherCurrentAddress;
 
 @end
 
@@ -66,7 +78,13 @@ NSString *const MKeyDistanceName = @"distance";
   }
 }
 
-- (void)displayAddressDistance:(double)distance {
+- (void)displayAddressDistance:(double)distance
+       withImageCurrentWeather:(NSData *)dataImageCurrentWeather
+     temperatureCurrentWeather:(NSString *)temperatureCurrentWeather
+     descriptionCurrentWeather:(NSString *)descriptionCurrentWeather
+        imageWeatherToAddresss:(NSData *)dataImageWeatherToAddress
+   temperatureWeatherToAddress:(NSString *)temperatureWeatherToAddress
+   descriptionWeatherToAddress:(NSString *)descriptionWeatherToAddress {
 
   BOOL isMetric = [[[NSLocale currentLocale]
       objectForKey:NSLocaleUsesMetricSystem] boolValue];
@@ -94,10 +112,18 @@ NSString *const MKeyDistanceName = @"distance";
     }
   }
 
+  // Update information search
   self.distanceLabel.text =
       [NSString stringWithFormat:format, [self stringWithDouble:distance]];
+  self.imageWeatherCurrentAddress.image =
+      [UIImage imageWithData:dataImageCurrentWeather];
+  self.imageWeatherToAddress.image =
+      [UIImage imageWithData:dataImageWeatherToAddress];
+  self.descriptionWeatherCurrentAddress.text =
+      [descriptionCurrentWeather capitalizedString];
+  self.descriptionWeatherToAddress.text =
+      [descriptionWeatherToAddress capitalizedString];
 }
-
 // Return a string of the number to one decimal place and with commas & periods
 // based on the locale.
 - (NSString *)stringWithDouble:(double)value {
@@ -117,7 +143,7 @@ NSString *const MKeyDistanceName = @"distance";
   [[NSNotificationCenter defaultCenter]
       addObserver:self
          selector:@selector(reviceDistanceWithNotification:)
-             name:MNotificationDistanceName
+             name:MNotificationInformationName
            object:nil];
 }
 /**
@@ -129,7 +155,19 @@ NSString *const MKeyDistanceName = @"distance";
 
   NSDictionary *distanceDictionary = notification.userInfo;
   [self displayAddressDistance:[[distanceDictionary
-                                   objectForKey:MKeyDistanceName] doubleValue]];
+                                   objectForKey:MKeyDistanceName] doubleValue]
+          withImageCurrentWeather:[distanceDictionary
+                                      objectForKey:MKeyImageCurrentWeatherName]
+        temperatureCurrentWeather:
+            [distanceDictionary objectForKey:MKeyTemperatureCurrentWeather]
+        descriptionCurrentWeather:
+            [distanceDictionary objectForKey:MKeyDescriptionCurrentWeather]
+           imageWeatherToAddresss:[distanceDictionary
+                                      objectForKey:MKeyImageWeatherToAddress]
+      temperatureWeatherToAddress:
+          [distanceDictionary objectForKey:MKeyTemperatureWeatherToAddress]
+      descriptionWeatherToAddress:
+          [distanceDictionary objectForKey:MKeyDescriptionWeatherToAddress]];
 }
 /**
  *  Dealoc method

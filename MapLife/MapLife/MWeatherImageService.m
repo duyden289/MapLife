@@ -6,34 +6,37 @@
 //  Copyright © 2017 DenNH. All rights reserved.
 //
 
-#import "MWeatherImageService.h"
-#import "MServiceBase.h"
 #import "MServerURI.h"
+#import "MServiceBase.h"
+#import "MWeatherImageService.h"
 
-@interface MWeatherImageService()<MServiceBaseDelegate>
+@interface MWeatherImageService () <MServiceBaseDelegate>
 
-@property (nonatomic, copy)void(^getDataImage)(NSData *dataImage);
+@property(nonatomic, copy) void (^getDataImage)(NSData *dataImage);
 
 @end
 
 @implementation MWeatherImageService
 
-- (void)startRequestDownloadImageWeather:(NSString *)nameImageFile onCompleteData:(void (^)(NSData *dataImage))completeHandle
-{
-    self.delegate = self;
-    self.getDataImage = completeHandle;
-    NSString *urlStringRequest = [NSString stringWithFormat:@"%@%@",[MServerURI sharedInstance].APIWeatherServerImage, nameImageFile];
-    [urlStringRequest stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLFragmentAllowedCharacterSet]];
-    
-    NSURLRequest *urlRequest = [NSURLRequest requestWithURL:[NSURL URLWithString:urlStringRequest]];
-    [self startRequest:urlRequest];
+- (void)startRequestDownloadImageWeather:(NSString *)nameImageFile
+                          onCompleteData:
+                              (void (^)(NSData *dataImage))completeHandle {
+  self.delegate = self;
+  self.getDataImage = completeHandle;
+  NSString *urlStringRequest = [NSString
+      stringWithFormat:@"%@%@%@",
+                       [MServerURI sharedInstance].APIWeatherServerImage,
+                       nameImageFile, @".png"];
+  [urlStringRequest stringByAddingPercentEncodingWithAllowedCharacters:
+                        [NSCharacterSet URLFragmentAllowedCharacterSet]];
+
+  NSURLRequest *urlRequest =
+      [NSURLRequest requestWithURL:[NSURL URLWithString:urlStringRequest]];
+  [self startRequest:urlRequest];
 }
-- (void)requestDidReviceNormalData:(NSData *)responseData
-{
-    self.getDataImage(responseData);
+- (void)requestDidReviceNormalData:(NSData *)responseData {
+  self.getDataImage(responseData);
 }
-- (void)requestDidReviceErrorFromServer:(NSData *)errorData
-{
-    
+- (void)requestDidReviceErrorFromServer:(NSData *)errorData {
 }
 @end

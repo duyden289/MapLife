@@ -11,6 +11,10 @@
 
 @interface MWeatherLocationCurrentAddressService : MServiceBase
 
-- (void)startRequestOnCompleteWithLatitude:(CGFloat)latitude andLongitude:(CGFloat)lonitude successHanlde:(void (^)(NSArray * weatherList))successHandle onError:(void (^)(NSString *errorString))errorHanlde;
+- (void)
+startRequestOnCompleteWithLatitude:(CGFloat)latitude
+                      andLongitude:(CGFloat)lonitude
+                     successHanlde:(void (^)(NSArray *weatherList))successHandle
+                           onError:(void (^)(NSString *errorString))errorHanlde;
 
 @end

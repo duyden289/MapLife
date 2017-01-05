@@ -12,13 +12,15 @@
 #import "MSearchAddressViewController.h"
 #import "MSearchAnnotation.h"
 #import "MStringValue.h"
+#import "MWeatherCurrentAddressInfoData.h"
+#import "MWeatherImageService.h"
+#import "MWeatherLocationCurrentAddressService.h"
+#import "MWeatherLocationToAddressService.h"
+#import "MWeatherToAddressInfoData.h"
 #import "MapViewController.h"
 #import "SearchAnnotationView.h"
 #import "ViewInfo.h"
 #import <MapKit/MapKit.h>
-#import "MWeatherLocationCurrentAddressService.h"
-#import "MWeatherLocationToAddressService.h"
-#import "MWeatherImageService.h"
 
 /**
  *  Image name pin map
@@ -102,12 +104,12 @@ NSString *const StoryboardInforMenuSearchViewController =
 /**
  * Distance address
  */
-@property (nonatomic, assign) double addressDistance;
+@property(nonatomic, assign) double addressDistance;
 /**
  * Coordinate
  */
-@property (nonatomic, assign) CGFloat latitude;
-@property (nonatomic, assign) CGFloat longitude;
+@property(nonatomic, assign) CGFloat latitude;
+@property(nonatomic, assign) CGFloat longitude;
 @end
 
 @implementation MapViewController
@@ -313,9 +315,13 @@ NSString *const StoryboardInforMenuSearchViewController =
                     (CLLocationCoordinate2D)locationCoordinateToAddress {
 
   MKDirectionsRequest *directionRequest = [MKDirectionsRequest new];
-    MWeatherLocationCurrentAddressService *weatherCurrentAddressService = [[MWeatherLocationCurrentAddressService alloc] init];
-    MWeatherLocationToAddressService *weatherToAddressService = [[MWeatherLocationToAddressService alloc] init];
-    
+  MWeatherLocationCurrentAddressService *weatherCurrentAddressService =
+      [[MWeatherLocationCurrentAddressService alloc] init];
+  MWeatherLocationToAddressService *weatherToAddressService =
+      [[MWeatherLocationToAddressService alloc] init];
+  MWeatherImageService *weatherImageService =
+      [[MWeatherImageService alloc] init];
+
   MKPlacemark *fromPlacemark;
   if (lroundf(locationCoordinateFromAddress.latitude) == 0 &&
       lroundf(locationCoordinateFromAddress.longitude) == 0) {
@@ -323,16 +329,16 @@ NSString *const StoryboardInforMenuSearchViewController =
     fromPlacemark =
         [[MKPlacemark alloc] initWithCoordinate:self.location.coordinate
                               addressDictionary:nil];
-      self.latitude = self.location.coordinate.latitude;
-      self.longitude = self.location.coordinate.longitude;
+    self.latitude = self.location.coordinate.latitude;
+    self.longitude = self.location.coordinate.longitude;
   } else {
     fromPlacemark =
         [[MKPlacemark alloc] initWithCoordinate:locationCoordinateFromAddress
                               addressDictionary:nil];
-      self.latitude = locationCoordinateFromAddress.latitude;
-      self.longitude = locationCoordinateFromAddress.longitude;
+    self.latitude = locationCoordinateFromAddress.latitude;
+    self.longitude = locationCoordinateFromAddress.longitude;
   }
-  
+
   MKMapItem *fromItem = [[MKMapItem alloc] initWithPlacemark:fromPlacemark];
 
   MKPlacemark *toPlacemark =
@@ -373,37 +379,79 @@ NSString *const StoryboardInforMenuSearchViewController =
     CLLocation *locationToAddress = [[CLLocation alloc]
         initWithLatitude:locationCoordinateToAddress.latitude
                longitude:locationCoordinateToAddress.longitude];
-      // Request weather
-      [weatherCurrentAddressService startRequestOnCompleteWithLatitude:self.latitude andLongitude:self.longitude successHanlde:^(NSArray *weatherList) {
-          NSLog(@"====CURRENT WEARTHER=======%@", weatherList);
-          
-          [weatherToAddressService startRequestOnCompleteWithLatitude:locationCoordinateToAddress.latitude andLongitude:locationCoordinateToAddress.longitude successHanlde:^(NSArray *weatherList) {
-              NSLog(@"====TO WEARTHER=======%@", weatherList);
-              
-              // Setup annotation
-              [self setupAnnotation:self.searchAnnotation location:locationToAddress];
-              
-              [self plotOnMap:self.route];
-              
-              self.infoMenuSearch = nil;
-              // Add search view info
-              [self addSearchViewInfo:self.addressDistance];
-              
-          } onError:^(NSString *errorString) {
-              
-          }];
-          
-      } onError:^(NSString *errorString) {
-          
-      }];
-//    // Setup annotation
-//    [self setupAnnotation:self.searchAnnotation location:locationToAddress];
-//
-//    [self plotOnMap:self.route];
-//
-//    self.infoMenuSearch = nil;
-//    // Add search view info
-//    [self addSearchViewInfo:self.addressDistance];
+
+    __block NSData *dataCurrentWeatherImage = [NSData data];
+    __block NSData *dataToAddressWeatherImage = [NSData data];
+
+    // Request weather
+    [weatherCurrentAddressService
+        startRequestOnCompleteWithLatitude:self.latitude
+        andLongitude:self.longitude
+        successHanlde:^(NSArray *weatherList) {
+          MWeatherCurrentAddressInfoData *currentAddressInfo =
+              [weatherList objectAtIndex:0];
+          // Download image weather
+
+          [weatherImageService
+              startRequestDownloadImageWeather:currentAddressInfo
+                                                   .imageNameWeather
+                                onCompleteData:^(NSData *dataImage) {
+                                  dataCurrentWeatherImage = dataImage;
+                                }];
+
+          [weatherToAddressService
+              startRequestOnCompleteWithLatitude:locationCoordinateToAddress
+                                                     .latitude
+              andLongitude:locationCoordinateToAddress.longitude
+              successHanlde:^(NSArray *weatherList) {
+
+                MWeatherToAddressInfoData *toAddressInfo =
+                    [weatherList objectAtIndex:0];
+
+                // Download image weather
+                [weatherImageService
+                    startRequestDownloadImageWeather:toAddressInfo
+                                                         .imageNameWeather
+                                      onCompleteData:^(NSData *dataImage) {
+                                        dataToAddressWeatherImage = dataImage;
+
+                                        // Setup annotation
+                                        [self
+                                            setupAnnotation:
+                                                self.searchAnnotation
+                                                   location:locationToAddress];
+
+                                        [self plotOnMap:self.route];
+
+                                        self.infoMenuSearch = nil;
+                                        // Add search view info
+                                        [self addSearchViewInfo:
+                                                  self.addressDistance
+                                                withImageCurrentWeather:
+                                                    dataCurrentWeatherImage
+                                              temperatureCurrentWeather:
+                                                  currentAddressInfo.temperature
+                                              descriptionCurrentWeather:
+                                                  currentAddressInfo
+                                                      .descriptionWeather
+                                                 imageWeatherToAddresss:
+                                                     dataToAddressWeatherImage
+                                            temperatureWeatherToAddress:
+                                                toAddressInfo.temperature
+                                            descriptionWeatherToAddress:
+                                                toAddressInfo
+                                                    .descriptionWeather];
+
+                                      }];
+              }
+              onError:^(NSString *errorString){
+
+              }];
+
+        }
+        onError:^(NSString *errorString){
+
+        }];
 
   }];
 }
@@ -412,7 +460,13 @@ NSString *const StoryboardInforMenuSearchViewController =
  *
  *  @param distance Distance address
  */
-- (void)addSearchViewInfo:(double)distance {
+- (void)addSearchViewInfo:(double)distance
+        withImageCurrentWeather:(NSData *)dataImageCurrentWeather
+      temperatureCurrentWeather:(NSString *)temperatureCurrentWeather
+      descriptionCurrentWeather:(NSString *)descriptionCurrentWeather
+         imageWeatherToAddresss:(NSData *)dataImageWeatherToAddress
+    temperatureWeatherToAddress:(NSString *)temperatureWeatherToAddress
+    descriptionWeatherToAddress:(NSString *)descriptionWeatherToAddress {
 
   // Setup infor menu search
   if (self.infoMenuSearch == nil) {
@@ -475,12 +529,19 @@ NSString *const StoryboardInforMenuSearchViewController =
   // Add constraint of the View to the Card View
   [parent addConstraints:@[ leftConstraintView, bottom, rightConstraintView ]];
   [subView addConstraint:self.heightConstraintView];
-  NSDictionary *dictionaryDistance =
-      @{MKeyDistanceName : [NSNumber numberWithDouble:distance]};
+  NSDictionary *dictionaryInformation = @{
+    MKeyDistanceName : [NSNumber numberWithDouble:distance],
+    MKeyImageCurrentWeatherName : dataImageCurrentWeather,
+    MKeyTemperatureCurrentWeather : temperatureCurrentWeather,
+    MKeyDescriptionCurrentWeather : descriptionCurrentWeather,
+    MKeyImageWeatherToAddress : dataImageWeatherToAddress,
+    MKeyTemperatureWeatherToAddress : temperatureWeatherToAddress,
+    MKeyDescriptionWeatherToAddress : descriptionWeatherToAddress
+  };
   [[NSNotificationCenter defaultCenter]
-      postNotificationName:MNotificationDistanceName
+      postNotificationName:MNotificationInformationName
                     object:nil
-                  userInfo:dictionaryDistance];
+                  userInfo:dictionaryInformation];
 }
 #pragma mark Unitily method
 - (void)plotOnMap:(MKRoute *)route {

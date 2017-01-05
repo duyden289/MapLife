@@ -10,6 +10,12 @@
 #import <UIKit/UIKit.h>
 
 extern NSString *const MKeyDistanceName;
+extern NSString *const MKeyImageCurrentWeatherName;
+extern NSString *const MKeyImageWeatherToAddress;
+extern NSString *const MKeyDescriptionCurrentWeather;
+extern NSString *const MKeyDescriptionWeatherToAddress;
+extern NSString *const MKeyTemperatureCurrentWeather;
+extern NSString *const MKeyTemperatureWeatherToAddress;
 
 @protocol InforMenuSearchViewControllerDelegate <NSObject>
 
