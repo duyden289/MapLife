@@ -423,7 +423,12 @@ NSString *const StoryboardInforMenuSearchViewController =
 
                                         [self plotOnMap:self.route];
 
+                                        [self.infoMenuSearch
+                                                .view removeFromSuperview];
+                                        [self.infoMenuSearch
+                                                removeFromParentViewController];
                                         self.infoMenuSearch = nil;
+
                                         // Add search view info
                                         [self addSearchViewInfo:
                                                   self.addressDistance
@@ -469,13 +474,10 @@ NSString *const StoryboardInforMenuSearchViewController =
     descriptionWeatherToAddress:(NSString *)descriptionWeatherToAddress {
 
   // Setup infor menu search
-  if (self.infoMenuSearch == nil) {
 
-    self.infoMenuSearch =
-        [self.storyboard instantiateViewControllerWithIdentifier:
-                             StoryboardInforMenuSearchViewController];
-  }
-
+  self.infoMenuSearch =
+      [self.storyboard instantiateViewControllerWithIdentifier:
+                           StoryboardInforMenuSearchViewController];
   self.infoMenuSearch.delegate = self;
   // Add infor search to view
   [self addChildViewController:self.infoMenuSearch];

@@ -31,6 +31,8 @@ NSString *const MKeyTemperatureWeatherToAddress =
 @property(weak, nonatomic) IBOutlet UIImageView *imageWeatherToAddress;
 @property(weak, nonatomic) IBOutlet UIImageView *imageWeatherCurrentAddress;
 @property(weak, nonatomic) IBOutlet UILabel *descriptionWeatherCurrentAddress;
+@property(weak, nonatomic) IBOutlet UILabel *temperatureCurrentWeather;
+@property(weak, nonatomic) IBOutlet UILabel *temperatureWeatherToAddress;
 
 @end
 
@@ -52,7 +54,7 @@ NSString *const MKeyTemperatureWeatherToAddress =
   self.distanceLabel.textAlignment = NSTextAlignmentRight;
   self.distanceLabel.font = [UIFont boldSystemFontOfSize:30.0];
 
-  self.UnitsDistanceLabel.textColor = [UIColor colorWithIndex:MLColorIndex13];
+  self.UnitsDistanceLabel.textColor = [UIColor colorWithIndex:MLColorIndex08];
   self.UnitsDistanceLabel.textAlignment = NSTextAlignmentCenter;
 }
 #pragma mark MenuSearchDraggingButtonDelegate
@@ -123,6 +125,20 @@ NSString *const MKeyTemperatureWeatherToAddress =
       [descriptionCurrentWeather capitalizedString];
   self.descriptionWeatherToAddress.text =
       [descriptionWeatherToAddress capitalizedString];
+    
+    
+  NSString *tempCurrentWeather =
+      [NSString stringWithFormat:@"%@%@", [NSString stringWithFormat:@"%.01f",[temperatureCurrentWeather doubleValue] - 273.15], @"°C"];
+  NSString *tempWeatherToAddress =
+      [NSString stringWithFormat:@"%@%@", [NSString stringWithFormat:@"%.01f",[temperatureWeatherToAddress doubleValue] - 273.15], @"°C"];
+  self.temperatureCurrentWeather.text = tempCurrentWeather;
+  self.temperatureWeatherToAddress.text = tempWeatherToAddress;
+    // Set font
+    self.temperatureCurrentWeather.font = [UIFont fontWithName:@"Helvetica-Bold" size:16];
+    self.temperatureWeatherToAddress.font = [UIFont fontWithName:@"Helvetica-Bold" size:16];
+    // Set Color
+    self.temperatureCurrentWeather.textColor = [UIColor colorWithIndex:MLColorIndex08];
+    self.temperatureWeatherToAddress.textColor = [UIColor colorWithIndex:MLColorIndex08];
 }
 // Return a string of the number to one decimal place and with commas & periods
 // based on the locale.
