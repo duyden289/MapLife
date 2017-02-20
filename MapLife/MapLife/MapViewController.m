@@ -21,6 +21,8 @@
 #import "SearchAnnotationView.h"
 #import "ViewInfo.h"
 #import <MapKit/MapKit.h>
+#import "MSharedPreferences.h"
+#import "Configure.h"
 
 /**
  *  Image name pin map
@@ -98,6 +100,10 @@ NSString *const StoryboardInforMenuSearchViewController =
  */
 @property(nonatomic, strong) NSMutableArray *arrayAnnotationSearchs;
 /**
+ *  Array location moving
+ */
+@property(nonatomic, strong) NSMutableArray *arrayLocationMovings;
+/**
  *  Search annotation view
  */
 @property(nonatomic, strong) SearchAnnotationView *searchannotationView;
@@ -110,6 +116,7 @@ NSString *const StoryboardInforMenuSearchViewController =
  */
 @property(nonatomic, assign) CGFloat latitude;
 @property(nonatomic, assign) CGFloat longitude;
+@property (nonatomic, assign) BOOL locationNotChange;
 @end
 
 @implementation MapViewController
@@ -133,6 +140,7 @@ NSString *const StoryboardInforMenuSearchViewController =
 
   self.geocoder = [[CLGeocoder alloc] init];
   self.arrayAnnotationSearchs = [[NSMutableArray alloc] init];
+    self.arrayLocationMovings = [[NSMutableArray alloc] init];
 }
 
 #pragma Mark MapviewDelegate
@@ -167,7 +175,10 @@ NSString *const StoryboardInforMenuSearchViewController =
           (ViewInfo *)[[[NSBundle mainBundle] loadNibNamed:@"ViewInfo"
                                                      owner:self
                                                    options:nil] firstObject];
-      [self.viewInfo loadInfoAddress:self.addressUser];
+//        if (self.locationNotChange) {
+        
+            [self.viewInfo loadInfoAddress:self.addressUser];
+//        }
       calloutView = self.viewInfo;
       annotationView = [[AnnotationView alloc]
           initWithAnnotation:annotation
@@ -244,15 +255,21 @@ NSString *const StoryboardInforMenuSearchViewController =
   CLLocation *currentLocation = locations[0];
   self.location = currentLocation;
 
-  if (!self.hasLocation) {
-    self.hasLocation = YES;
+    if (!self.hasLocation) {
+       self.hasLocation = YES;
+        [MSharedPreferences sharedInstance].locationParent = currentLocation;
+    }
+//  if (!self.hasLocation) {
+//    self.hasLocation = YES;
     if (currentLocation != nil) {
 
       self.annotation = [Annotation new];
       // Setup annotation
       [self setupAnnotation:self.annotation location:currentLocation];
+        [self distanceNotification];
+      
     }
-  }
+//  }
 }
 - (void)setupAnnotation:(id<MKAnnotation>)annotation
                location:(CLLocation *)currentLocation {
@@ -287,9 +304,25 @@ NSString *const StoryboardInforMenuSearchViewController =
                  }
                  [self.mapLifeView addAnnotation:lastSearchAnnotation];
 
-               } else {
-                 [self.mapLifeView addAnnotation:annotation];
                }
+               
+               else {
+                   [self.arrayLocationMovings addObject:self.annotation];
+                   Annotation *lastLocation = (Annotation *)
+                   [self.arrayLocationMovings lastObject];
+                   for (Annotation *locationItem in self
+                        .arrayLocationMovings) {
+                       
+                       if (locationItem != lastLocation) {
+                           
+                           [self.mapLifeView removeAnnotation:locationItem];
+                       }
+                   }
+                   [self.mapLifeView addAnnotation:lastLocation];
+//                 [self.mapLifeView addAnnotation:annotation];
+               }
+                 
+                 
                [self.mapLifeView
                    setRegion:MKCoordinateRegionMakeWithDistance(
                                  annotation.coordinate, 1000, 1000)];
@@ -297,6 +330,42 @@ NSString *const StoryboardInforMenuSearchViewController =
              }
 
            }];
+}
+- (BOOL)distanceNotification
+{
+    BOOL result ;
+    CLLocationDistance kilomet = [self.location distanceFromLocation:[MSharedPreferences sharedInstance].locationParent];
+    BOOL isMetric = [[[NSLocale currentLocale]
+                      objectForKey:NSLocaleUsesMetricSystem] boolValue];
+    
+    
+    if (isMetric) {
+        if (kilomet < METERS_CUTOFF) {
+            
+            if (kilomet == 0 || kilomet <5) {
+                
+                self.locationNotChange = YES;
+                result = NO;
+            }
+            
+        } else if(kilomet == METERS_CUTOFF) {
+            
+            self.hasLocation = NO;
+            self.locationNotChange = NO;
+            [MSharedPreferences sharedInstance].locationParent = [[CLLocation alloc] init];
+            result = YES;
+            
+        }
+    } else { // assume Imperial / U.S.
+        kilomet = kilomet * METERS_TO_FEET;
+        if (kilomet < FEET_CUTOFF) {
+            
+        } else {
+            
+        }
+    }
+    
+    return result;
 }
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
 
@@ -315,6 +384,8 @@ NSString *const StoryboardInforMenuSearchViewController =
                     (CLLocationCoordinate2D)locationCoordinateToAddress {
 
   MKDirectionsRequest *directionRequest = [MKDirectionsRequest new];
+    
+    // Request weather location
   MWeatherLocationCurrentAddressService *weatherCurrentAddressService =
       [[MWeatherLocationCurrentAddressService alloc] init];
   MWeatherLocationToAddressService *weatherToAddressService =
@@ -375,6 +446,7 @@ NSString *const StoryboardInforMenuSearchViewController =
           //        NSLog(@"Rout Distance : %f", [obj distance]);
       }];
     }];
+      
     self.searchAnnotation = [MSearchAnnotation new];
     CLLocation *locationToAddress = [[CLLocation alloc]
         initWithLatitude:locationCoordinateToAddress.latitude

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		41042D511E2F61BE00DDE59C /* MSharedPreferences.m in Sources */ = {isa = PBXBuildFile; fileRef = 41042D501E2F61BE00DDE59C /* MSharedPreferences.m */; };
 		411ED6031E07818A0095D066 /* MenuSearchDraggingButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 411ED6021E07818A0095D066 /* MenuSearchDraggingButton.m */; };
 		411ED6081E0796240095D066 /* UIColor+MapLife.m in Sources */ = {isa = PBXBuildFile; fileRef = 411ED6071E0796240095D066 /* UIColor+MapLife.m */; };
 		418618871E09976C005A0EE8 /* MStringValue.m in Sources */ = {isa = PBXBuildFile; fileRef = 418618861E09976C005A0EE8 /* MStringValue.m */; };
@@ -39,6 +40,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		41042D4F1E2F61BE00DDE59C /* MSharedPreferences.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MSharedPreferences.h; sourceTree = "<group>"; };
+		41042D501E2F61BE00DDE59C /* MSharedPreferences.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MSharedPreferences.m; sourceTree = "<group>"; };
 		411ED6011E07818A0095D066 /* MenuSearchDraggingButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MenuSearchDraggingButton.h; sourceTree = "<group>"; };
 		411ED6021E07818A0095D066 /* MenuSearchDraggingButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MenuSearchDraggingButton.m; sourceTree = "<group>"; };
 		411ED6061E0796240095D066 /* UIColor+MapLife.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+MapLife.h"; sourceTree = "<group>"; };
@@ -107,6 +110,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		41042D4E1E2F617E00DDE59C /* Storage */ = {
+			isa = PBXGroup;
+			children = (
+				41042D4F1E2F61BE00DDE59C /* MSharedPreferences.h */,
+				41042D501E2F61BE00DDE59C /* MSharedPreferences.m */,
+			);
+			name = Storage;
+			sourceTree = "<group>";
+		};
 		411ED6041E0795450095D066 /* Common */ = {
 			isa = PBXGroup;
 			children = (
@@ -177,6 +189,7 @@
 		41FB88221DE1521A001E2F23 /* MapLife */ = {
 			isa = PBXGroup;
 			children = (
+				41042D4E1E2F617E00DDE59C /* Storage */,
 				41E42E9E1E1CF14E00F8AB0D /* Constant */,
 				41E42E981E1CE73C00F8AB0D /* Service */,
 				411ED6041E0795450095D066 /* Common */,
@@ -336,6 +349,7 @@
 				411ED6081E0796240095D066 /* UIColor+MapLife.m in Sources */,
 				41F909DA1E1DFD0A009F5151 /* MWeatherLocationCurrentAddressService.m in Sources */,
 				41FB886B1DE1906C001E2F23 /* Annotation.m in Sources */,
+				41042D511E2F61BE00DDE59C /* MSharedPreferences.m in Sources */,
 				41FB882B1DE1521A001E2F23 /* MapViewController.m in Sources */,
 				41E42E9B1E1CE78700F8AB0D /* MServiceBase.m in Sources */,
 				41FB88661DE188A0001E2F23 /* AnnotationView.m in Sources */,
